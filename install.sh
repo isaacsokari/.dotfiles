@@ -10,6 +10,7 @@ _link_and_backup() {
   DEFAULT_FILE="$HOME/$1"
   LINK_FILE="$SCRIPT_DIR/$1"
 
+# creating backup files
   if [[ ! -L "$DEFAULT_FILE" ]]; then
     mv "$DEFAULT_FILE" "$DEFAULT_FILE.backup"
   else
