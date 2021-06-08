@@ -5,7 +5,13 @@ command W w !sudo tee % > /dev/null
 " Line
 """"""""""""""""""""""""""""""""""""
 " show line numbers
-set number
+" set number
+" show relative line numbers 
+set rnu
+
+"""""""""""""""""""""""""""""""""""""
+" set scrolloff to auto scroll
+set scrolloff=10
 
 """""""""""""""""""""""""""""""""""""
 " Indents
