@@ -132,3 +132,10 @@ export NVM_DIR="$HOME/.nvm"
 /usr/bin/keychain --nogui $HOME/.ssh/id_rsa
 # source $HOME/.keychain/$HOSTNAME-sh
 source $HOME/.keychain/$HOST-sh
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+if which rbenv > /dev/null; then 
+  eval "$(rbenv init -)"; 
+fi
+
