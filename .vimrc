@@ -17,7 +17,7 @@ set scrolloff=10
 " Indents
 """"""""""""""""""""""""""""""""""""
 " replace tabs with spaces
-set expandtab
+" set expandtab
 
 " 1 tab = 2 spaces
 set tabstop=2 shiftwidth=2
@@ -53,6 +53,12 @@ set showmatch
 "
 " highlight current line
 set cursorline
+
+"
+" set insertmode cursor
+set guicursor=n-v-c:block-Cursor
+set guicursor+=i-ci:ver30-iCursor
+
 
 " space open/closes folds
 nnoremap <space> za
