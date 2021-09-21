@@ -4,8 +4,8 @@ command W w !sudo tee % > /dev/null
 """"""""""""""""""""""""""""""""""""
 " Line
 """"""""""""""""""""""""""""""""""""
-" show line numbers
-" set number
+" show line numbers on current line instead of 0
+set nu
 " show relative line numbers 
 set rnu
 
@@ -20,7 +20,10 @@ set scrolloff=10
 " set expandtab
 
 " 1 tab = 2 spaces
-set tabstop=2 shiftwidth=2
+set tabstop=2 softtabstop=2
+set shiftwidth=2
+
+set smartindent
 
 " when deleting whitespace at the beginning of a line, delete 
 " 1 tab worth of spaces (for us this is 2 spaces)
@@ -38,7 +41,7 @@ set ignorecase
 set smartcase
 
 " " highlight search results (after pressing Enter)
-set hlsearch
+set nohlsearch
 
 " " highlight all pattern matches WHILE typing the pattern
 set incsearch
@@ -69,3 +72,19 @@ set foldmethod=indent
 " enable modelines for file-specific settings
 " 1 means it'll be at the bottom of the file
 set modelines=1
+
+" set path
+set path+=**
+
+" Nice menu when typing `:find *.py`
+set wildmode=longest,list,full
+set wildmenu
+" Ignore files
+set wildignore+=*.pyc
+set wildignore+=*_build/*
+set wildignore+=**/coverage/*
+set wildignore+=**/node_modules/*
+set wildignore+=**/android/*
+set wildignore+=**/ios/*
+set wildignore+=**/.git/*
+
