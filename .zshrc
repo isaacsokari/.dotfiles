@@ -139,3 +139,7 @@ if which rbenv > /dev/null; then
   eval "$(rbenv init -)"; 
 fi
 
+if which keychain > /dev/null; then
+  /usr/bin/keychain --quiet --nogui $HOME/.ssh/id_ed25519
+  source $HOME/.keychain/$HOST-sh
+fi
