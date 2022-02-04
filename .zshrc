@@ -133,9 +133,11 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # For Loading the SSH key
+if [ -f /usr/bin/keychain ]; then
 /usr/bin/keychain --nogui $HOME/.ssh/id_rsa
 # source $HOME/.keychain/$HOSTNAME-sh
 source $HOME/.keychain/$HOST-sh
+fi
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
