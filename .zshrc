@@ -128,10 +128,6 @@ export LC_ALL="en_US.UTF-8"
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 # For Loading the SSH key
 if [ -f /usr/bin/keychain ]; then
 /usr/bin/keychain --nogui $HOME/.ssh/id_rsa
@@ -149,3 +145,13 @@ if which keychain > /dev/null; then
   /usr/bin/keychain --quiet --nogui $HOME/.ssh/id_ed25519
   source $HOME/.keychain/$HOST-sh
 fi
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
+
+alias work='cd ~/Documents/work'
