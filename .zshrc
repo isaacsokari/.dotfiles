@@ -13,9 +13,9 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 # ZSH_THEME=""
 
- # autoload comautocompletion files
- autoload -U compinit
- compinit -i
+# autoload comautocompletion files
+autoload -U compinit
+compinit -i
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -171,13 +171,26 @@ export CPPFLAGS="-I/usr/local/opt/libpq/include"
 
 alias ruby='$(rbenv prefix)/bin/ruby'
 
-# alias vi and vim to nvim
-alias vi="nvim"
-alias vim="nvim"
+# alias e and v to nvim
+alias e="nvim"
+alias v="nvim"
 
-alias ivi="/usr/local/bin/nvim"
-alias ivim="ivi"
-alias invim="ivi"
+if [[ $(arch) = 'i386' ]]; then
+  alias ie="/usr/local/bin/nvim"
+  alias iv="/usr/local/bin/nvim"
+  alias ivim="ivi"
+  alias invim="ivi"
+fi
+
+if which lazygit > /dev/null; then
+  alias lg="lazygit"
+fi
+
+PATH="/Users/isaac/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/Users/isaac/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/Users/isaac/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/Users/isaac/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/Users/isaac/perl5"; export PERL_MM_OPT;
 
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
