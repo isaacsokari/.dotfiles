@@ -1,5 +1,5 @@
 return {
-  "PhilippHeuer/cloak.nvim",
+  "laytan/cloak.nvim",
   config = function()
     require("cloak").setup({
       enabled = true,
@@ -29,6 +29,7 @@ return {
       },
     })
 
-    vim.keymap.set("n", "<leader>cc", "<Cmd>CloakToggle<CR>", { desc = "Toggle Cloak" })
+    vim.keymap.set("n", "<leader>ct", "<Cmd>CloakToggle<CR>", { desc = "Toggle Cloak" })
+    vim.keymap.set("n", "<leader>cp", "<Cmd>CloakPreviewLine<CR>", { desc = "Preview Line Cloak" })
   end,
 }
