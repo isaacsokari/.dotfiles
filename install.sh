@@ -1,5 +1,5 @@
 #!/bin/bash
-SCRIPT_DIR=$(cd $(dirname "$0") && pwd)
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 DOTFILES_DIR="$HOME/.dotfiles"
 
 # ------------------------------------------------------------------------------------------
@@ -42,10 +42,10 @@ echo "Beginning installation"
 echo "======================================================================="
 echo ""
 
-cd $HOME
+cd "$HOME" || (echo "unable to cd to \$HOME" && exit 1)
 
 # Move the dotfiles directory to the HOME path if necessary...
-[[ ! -d $DOTFILES_DIR ]] && mv $SCRIPT_DIR $DOTFILES_DIR
+[[ ! -d $DOTFILES_DIR ]] && mv "$SCRIPT_DIR" "$DOTFILES_DIR"
 
 echo ""
 echo "======================================================================="
