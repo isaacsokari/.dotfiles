@@ -1,10 +1,11 @@
-[user]
-	email = $GIT_EMAIL
-	name = $GIT_NAME
+# NOTE: add this to your ~/.gitconfig.local file
+# [user]
+# 	email = $GIT_EMAIL
+# 	name = $GIT_NAME
 
-# .gitconfig but for work
-[includeIf "gitdir:~/Dev/Work/"]
-    path = ~/.gitconfig.work
+# local .gitconfig to prevent doxxing myself lol
+[include]
+    path = ~/.gitconfig.local
 
 # [core]
 	# Use custom `.gitignore` and `.gitattributes`
