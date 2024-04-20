@@ -52,7 +52,7 @@ echo "======================================================================="
 echo "Installing Dotfiles"
 echo "======================================================================="
 
-link_dotfiles ".zshrc"
+# link_dotfiles ".zshrc"
 link_dotfiles ".hushlogin"
 link_dotfiles ".gitconfig"
 link_dotfiles ".vimrc"
