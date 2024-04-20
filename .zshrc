@@ -186,6 +186,10 @@ if which lazygit > /dev/null; then
   alias lg="lazygit"
 fi
 
+if which fzf > /dev/null; then
+ eval "$(fzf --zsh)"
+fi
+
 PATH="/Users/isaac/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="/Users/isaac/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
 PERL_LOCAL_LIB_ROOT="/Users/isaac/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
