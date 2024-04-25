@@ -29,9 +29,12 @@ keymap.set("n", "Q", "<nop>")
 keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
--- better indenting
+-- highlight after indenting
 keymap.set("v", "<", "<gv")
 keymap.set("v", ">", ">gv")
+
+-- delete other buffers
+keymap.set("n", "<leader>bo", "<Cmd>%bd|e#|bd#<CR>", { desc = "Delete All Other Buffers" })
 
 -- keep cursor position afer joining line
 keymap.set("n", "J", "mzJ`z")
@@ -84,3 +87,17 @@ keymap.set("n", "<leader>w-", "<C-W>s", { desc = "Split window below", remap = t
 keymap.set("n", "<leader>w|", "<C-W>v", { desc = "Split window right", remap = true })
 keymap.set("n", "<leader>-", "<C-W>s", { desc = "Split window below", remap = true })
 keymap.set("n", "<leader>|", "<C-W>v", { desc = "Split window right", remap = true })
+
+-- lazygit
+keymap.set("n", "<leader>gG", function()
+  LazyVim.lazygit({ cwd = LazyVim.root.git() })
+end, { desc = "Lazygit (Root Dir)" })
+keymap.set("n", "<leader>gg", function()
+  LazyVim.lazygit()
+end, { desc = "Lazygit (cwd)" })
+keymap.set("n", "<leader>gb", LazyVim.lazygit.blame_line, { desc = "Git Blame Line" })
+
+keymap.set("n", "<leader>gf", function()
+  local git_path = vim.api.nvim_buf_get_name(0)
+  LazyVim.lazygit({ args = { "-f", vim.trim(git_path) } })
+end, { desc = "Lazygit Current File History" })
