@@ -33,8 +33,8 @@ keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 keymap.set("v", "<", "<gv")
 keymap.set("v", ">", ">gv")
 
--- delete other buffers
-keymap.set("n", "<leader>bo", "<Cmd>%bd|e#|bd#<CR>", { desc = "Delete All Other Buffers" })
+-- delete other buffers without bufferline
+-- keymap.set("n", "<leader>bo", "<Cmd>%bd|e#|bd#<CR>", { desc = "Delete All Other Buffers" })
 
 -- keep cursor position afer joining line
 keymap.set("n", "J", "mzJ`z")
