@@ -36,6 +36,9 @@ opt.undofile = true
 opt.hlsearch = false
 opt.incsearch = true
 
+-- show highlight previews in split buffer
+opt.inccommand = "split"
+
 opt.termguicolors = true
 
 opt.scrolloff = 8
