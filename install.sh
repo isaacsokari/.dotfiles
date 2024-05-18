@@ -53,6 +53,7 @@ echo "Installing Dotfiles"
 echo "======================================================================="
 
 # link_dotfiles ".zshrc"
+link_dotfiles ".p10k.zsh"
 link_dotfiles ".hushlogin"
 link_dotfiles ".gitconfig"
 link_dotfiles ".vimrc"
