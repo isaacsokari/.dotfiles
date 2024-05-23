@@ -38,6 +38,8 @@ zinit light Aloxaf/fzf-tab
 zinit snippet OMZP::git
 zinit snippet OMZP::sudo
 zinit snippet OMZP::aws
+zinit snippet OMZP::rails
+zinit snippet OMZP::qrcode
 zinit snippet OMZP::command-not-found
 
 # Load completions
