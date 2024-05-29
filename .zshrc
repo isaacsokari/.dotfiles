@@ -89,7 +89,10 @@ if [[ -d ~/Dev ]]; then
 fi
 
 # Shell integrations
-if which fzf > /dev/null; then eval "$(fzf --zsh)"; fi
+if which fzf > /dev/null; then
+  eval "$(fzf --zsh)";
+  export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+fi
 if which zoxide > /dev/null; then eval "$(zoxide init --cmd cd zsh)"; fi
 
 # For Loading the SSH key
