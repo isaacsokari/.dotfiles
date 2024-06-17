@@ -72,7 +72,9 @@ keymap.set("n", "<c-/>", lazyterm, { desc = "Terminal (root dir)" })
 keymap.set("n", "<c-_>", lazyterm, { desc = "which_key_ignore" })
 
 -- Terminal keymap.setpings
-keymap.set("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
+keymap.set("t", "<esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
+-- keymap.set("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
+-- keymap.del("t", "<esc><esc>")
 keymap.set("t", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to left window" })
 keymap.set("t", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to lower window" })
 keymap.set("t", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to upper window" })
