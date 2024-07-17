@@ -7,30 +7,30 @@ DOTFILES_DIR="$HOME/.dotfiles"
 # ------------------------------------------------------------------------------------------
 
 link_dotfiles() {
-	TARGET_FILE="$HOME/$1" SOURCE_FILE="$SCRIPT_DIR/$1" link_file "$1"
+  TARGET_FILE="$HOME/$1" SOURCE_FILE="$SCRIPT_DIR/$1" link_file "$1"
 }
 
 link_config() {
-	TARGET_FILE="$HOME/.config/$1" SOURCE_FILE="$SCRIPT_DIR/$1" link_file "$1"
+  TARGET_FILE="$HOME/.config/$1" SOURCE_FILE="$SCRIPT_DIR/$1" link_file "$1"
 }
 
 link_file() {
-	# creating backup files
-	if [[ ! -L "$TARGET_FILE" ]]; then
-		[[ -e "$TARGET_FILE" ]] && mv "$TARGET_FILE" "$TARGET_FILE.backup"
-	else
-		LINKING_TO=$(readlink "$TARGET_FILE")
+  # creating backup files
+  if [[ ! -L "$TARGET_FILE" ]]; then
+    [[ -e "$TARGET_FILE" ]] && mv "$TARGET_FILE" "$TARGET_FILE.backup"
+  else
+    LINKING_TO=$(readlink "$TARGET_FILE")
 
-		if [[ "$LINKING_TO" == "$SOURCE_FILE" ]]; then
-			echo "> Symlink for $TARGET_FILE already exists. Skipping!"
-			return
-		else
-			mv "$TARGET_FILE" "$TARGET_FILE.backup"
-		fi
-	fi
+    if [[ "$LINKING_TO" == "$SOURCE_FILE" ]]; then
+      echo "> Symlink for $TARGET_FILE already exists. Skipping!"
+      return
+    else
+      mv "$TARGET_FILE" "$TARGET_FILE.backup"
+    fi
+  fi
 
-	ln -s "$SOURCE_FILE" "$TARGET_FILE"
-	echo "> Created symlink for $TARGET_FILE."
+  ln -s "$SOURCE_FILE" "$TARGET_FILE"
+  echo "> Created symlink for $TARGET_FILE."
 }
 
 # ------------------------------------------------------------------------------------------
@@ -65,6 +65,7 @@ echo "======================================================================="
 
 link_config "nvim"
 link_config "tmux"
+link_config "ohmyposh"
 
 echo ""
 echo ""
