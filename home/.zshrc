@@ -32,14 +32,21 @@ zinit snippet OMZP::rails
 zinit snippet OMZP::qrcode
 zinit snippet OMZP::command-not-found
 
+# set up asdf
+if [[ -d ~/.asdf ]]; then
+  . "$HOME/.asdf/asdf.sh"
+  # append completions to fpath
+  fpath=(~/.asdf/completions $fpath)
+fi
+
 # Load completions
 autoload -Uz compinit && compinit
 
 zinit cdreplay -q
 
-if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
-  eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/config.toml)"
-fi
+# if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
+  # eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/config.toml)"
+# fi
 
 # Keybindings
 bindkey -e
@@ -201,3 +208,5 @@ function take() {
     takedir "$@"
   fi
 }
+
+eval "$(starship init zsh)"

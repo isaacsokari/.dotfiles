@@ -7,11 +7,11 @@ DOTFILES_DIR="$HOME/.dotfiles"
 # ------------------------------------------------------------------------------------------
 
 link_dotfiles() {
-  TARGET_FILE="$HOME/$1" SOURCE_FILE="$SCRIPT_DIR/$1" link_file "$1"
+  TARGET_FILE="$HOME/$1" SOURCE_FILE="$SCRIPT_DIR/home/$1" link_file "$1"
 }
 
 link_config() {
-  TARGET_FILE="$HOME/.config/$1" SOURCE_FILE="$SCRIPT_DIR/$1" link_file "$1"
+  TARGET_FILE="$HOME/.config/$1" SOURCE_FILE="$SCRIPT_DIR/config/$1" link_file "$1"
 }
 
 link_file() {
@@ -66,6 +66,7 @@ echo "======================================================================="
 link_config "nvim"
 link_config "tmux"
 link_config "ohmyposh"
+link_config "starship.toml"
 
 echo ""
 echo ""
