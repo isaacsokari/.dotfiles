@@ -35,7 +35,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 local is_env_file = function(e)
   local start_idx, _ = string.find(e.file, ".env", 1, true)
-  return (start_idx or 0) > 0
+  return (start_idx or 0) == 1
 end
 
 vim.api.nvim_create_autocmd({ "BufNew", "BufNewFile" }, {
@@ -43,7 +43,7 @@ vim.api.nvim_create_autocmd({ "BufNew", "BufNewFile" }, {
   callback = function(e)
     if is_env_file(e) then
       vim.bo[e.buf].filetype = "sh"
-      vim.diagnostic.disable(e.buf)
+      vim.diagnostic.enable(false, { bufnr = e.buf })
     end
   end,
 })
@@ -53,7 +53,7 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "sh",
   callback = function(e)
     if is_env_file(e) then
-      vim.diagnostic.disable(e.buf)
+      vim.diagnostic.enable(false, { bufnr = e.buf })
     end
   end,
 })
