@@ -57,6 +57,7 @@ link_dotfiles ".p10k.zsh"
 link_dotfiles ".hushlogin"
 link_dotfiles ".gitconfig"
 link_dotfiles ".vimrc"
+link_dotfiles ".ignore"
 
 echo ""
 echo "======================================================================="
