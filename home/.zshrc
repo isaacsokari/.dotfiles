@@ -82,8 +82,13 @@ alias v="nvim"
 if which lazygit > /dev/null; then alias lg="lazygit"; fi
 
 if [[ -d ~/Dev ]]; then
-  alias work='cd ~/Dev/work'
-  alias learn='cd ~/Dev/learn'
+  if [[ -n $(echo -n $TMUX) ]]; then
+    alias work='cd ~/Dev/work'
+    alias learn='cd ~/Dev/learn'
+  else
+    alias work="cd ~/Dev/work && tmux new -s ts"
+    alias learn="cd ~/Dev/learn && tmux new -s ts"
+  fi
 fi
 
 # Shell integrations
