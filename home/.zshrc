@@ -37,6 +37,10 @@ if [[ -d ~/.asdf ]]; then
   . "$HOME/.asdf/asdf.sh"
   # append completions to fpath
   fpath=(~/.asdf/completions $fpath)
+
+  if asdf list java > /dev/null; then
+    . ~/.asdf/plugins/java/set-java-home.zsh
+  fi
 fi
 
 # Load completions

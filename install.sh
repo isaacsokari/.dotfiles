@@ -58,6 +58,7 @@ link_dotfiles ".hushlogin"
 link_dotfiles ".gitconfig"
 link_dotfiles ".vimrc"
 link_dotfiles ".ignore"
+link_dotfiles ".asdfrc"
 
 echo ""
 echo "======================================================================="
