@@ -59,6 +59,7 @@ link_dotfiles ".gitconfig"
 link_dotfiles ".vimrc"
 link_dotfiles ".ignore"
 link_dotfiles ".asdfrc"
+link_dotfiles ".ideavimrc"
 
 echo ""
 echo "======================================================================="
