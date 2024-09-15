@@ -33,12 +33,8 @@ Plug 'tpope/vim-commentary'
 "" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
 "" Map \r to the Reformat Code action
 "map \r <Action>(ReformatCode)
-
-"" Map <leader>d to start debug
-"map <leader>d <Action>(Debug)
-
-"" Map \b to toggle the breakpoint on the current line
-"map \b <Action>(ToggleLineBreakpoint)
+" or
+"map \r :action ReformatCode<CR>
 
 
 "" .ideavimrc - inspired by Matt Chapman
@@ -50,11 +46,30 @@ Plug 'tpope/vim-commentary'
 set surround
 set highlightedyank
 " set sneak
-" set nerdtree
+set nerdtree
 
 " Easymotion settings
 set easymotion
 set notimeout
+
+" Which-key settings
+" Download the which-key plugin here or using the market place
+" Which-Key by Tobias Völzel
+" https://plugins.jetbrains.com/plugin/15976-which-key
+set which-key
+let g:WhichKey_FontSize = 14
+let g:WhichKey_CommandColor = "#41ead4"
+let g:WhichKey_PrefixColor = "#f335b2"
+let g:WhichKey_SortOrder = "by_key_prefix_first"
+
+" for a slower popup
+" let g:WhichKey_DefaultDelay = 600
+" let g:WhichKey_DefaultDelay = 1000
+let g:WhichKey_DefaultDelay = 0
+
+" close the popup and don't process formerly typed keys
+let g:WhichKey_ProcessUnknownMappings = "false"
+let g:WhichKeyDesc_leader = "<leader> Leader key"
 
 "" Key mappings
 "" ========================================================
@@ -69,24 +84,37 @@ set notimeout
 " Tab/Buffer navigation
 nnoremap L :tabnext<CR>
 nnoremap H :tabprev<CR>
-nnoremap <leader>bd :bd<CR>
-nnoremap <leader>bb :action GoToLastTab<CR>
-nnoremap <leader>bp :action PinActiveTabToggle<CR>
-nnoremap <leader>bP :action CloseAllUnpinnedEditors<CR>
-nnoremap <leader>bP :action CloseAllEditorsButActive<CR>
-nnoremap <leader>bl :action CloseAllToTheLeft<CR>
-nnoremap <leader>br :action CloseAllToTheRight<CR>
-nnoremap <leader>bR :action CloseAllReadonly<CR>
 
-" notifications
-nnoremap <leader>snd :action CloseAllNotifications<CR>
+let g:WhichKeyDesc_buffer = "<leader>b Buffer/Tab"
+
+nnoremap <leader>bd :bd<CR>
+let g:WhichKeyDesc_buffer_close = "<leader>bd Close Tab"
+
+nnoremap <leader>bb :action GoToLastTab<CR>
+let g:WhichKeyDesc_buffer_goto_last_tab = "<leader>bb Go To Last Tab"
+
+nnoremap <leader>bp :action PinActiveTabToggle<CR>
+let g:WhichKeyDesc_buffer_toggle_pin = "<leader>bp Pin/Unpin Tab"
+
+nnoremap <leader>bP :action CloseAllUnpinnedEditors<CR>
+let g:WhichKeyDesc_buffer_close_unpinned = "<leader>bP Close All Unpinned Editors"
+
+nnoremap <leader>bo :action CloseAllEditorsButActive<CR>
+let g:WhichKeyDesc_buffer_close_other_tabs = "<leader>bo Close All Other Editors"
+
+nnoremap <leader>bl :action CloseAllToTheLeft<CR>
+let g:WhichKeyDesc_buffer_close_to_left = "<leader>bl Close All To The Left"
+
+nnoremap <leader>br :action CloseAllToTheRight<CR>
+let g:WhichKeyDesc_buffer_close_to_right = "<leader>br Close All To The Right"
+
+nnoremap <leader>bR :action CloseAllReadonly<CR>
+let g:WhichKeyDesc_buffer_close_all_readonly = "<leader>bR Close All Readonly"
+
 
 " Jump between methods
 nnoremap [[ :action MethodUp<CR>
 nnoremap ]] :action MethodDown<CR>
-
-" Execute macro saved in 'q' register
-nnoremap qj @q
 
 " Completion
 map <C-n> :action EditorDown<CR>
@@ -110,81 +138,193 @@ vnoremap gc :action CommentByBlockComment<CR>
 nmap gcap viagc<Esc>
 nmap gcip vipgc<Esc>
 
-" Open NERDTree (use q to exit)
-noremap <leader>e :NERDTreeToggle<CR>
-
 " Folding
 " noremap <leader>zc :action CollapseAllRegions<CR>
 " noremap <leader>zo :action ExpandAllRegions<CR>
 " I use the defaults - zM and zR
 
+
 " Window splits
+let g:WhichKeyDesc_window = "<leader>w Window splits"
+
 noremap <leader>wv :action SplitVertically<CR>
+let g:WhichKeyDesc_window_split_vertically = "<leader>wv Split vertically"
+
 noremap <leader>ws :action SplitHorizontally<CR>
+let g:WhichKeyDesc_window_split_horizontally = "<leader>ws Split horizontally"
+
 noremap <leader>wd :action Unsplit<CR>
+let g:WhichKeyDesc_window_split_unsplit = "<leader>wd Unsplit"
+
 noremap <leader>wm :action MoveEditorToOppositeTabGroup<CR>
+let g:WhichKeyDesc_window_split_move_editor = "<leader>wm Move editor to opposite tab group"
 
-" Display options
-noremap <leader>dd :action ToggleDistractionFreeMode<CR>
-noremap <leader>dz :action ToggleZenMode<CR>
-noremap <leader>df :action ToggleFullScreen<CR>
 
-" Actions
-noremap <leader>/ :action SearchEverywhere<CR>
+" search
+let g:WhichKeyDesc_search = "<leader>s Search"
+
+let g:WhichKeyDesc_search_everywhere = "<leader>/ Search Everywhere"
+nnoremap <leader>/ :action SearchEverywhere<CR>
+
+noremap <leader>sw viw<leader>/
+let g:WhichKeyDesc_search_word_under_cursor = "<leader>sw Find word under cursor"
+
+" notifications
+let g:WhichKeyDesc_search_notifications = "<leader>sn Notifications"
+
+nnoremap <leader>snd :action CloseAllNotifications<CR>
+let g:WhichKeyDesc_search_notifications_clear = "<leader>snd Clear Notifications"
+
 
 " File navigation
-noremap <leader>ff :action GotoFile<CR>
-noremap <leader><leader> :action GotoFile<CR>
-noremap <leader>fr :action RecentFiles<CR>
-noremap <leader>fc :action FindInPath<CR>
-noremap <leader>fl :action RecentLocations<CR>
-noremap <leader>fn :action NewScratchFile<CR>
+let g:WhichKeyDesc_file_nav = "<leader>f File navigation"
 
-" Close active tab
-noremap <leader>q :action CloseContent<CR>
+noremap <leader>ff :action GotoFile<CR>
+let g:WhichKeyDesc_file_nav_goto_file = "<leader>ff Go to file"
+
+noremap <leader><leader> :action GotoFile<CR>
+let g:WhichKeyDesc_file_quickLook = "<leader><leader> Go to file"
+
+noremap <leader>fr :action RecentFiles<CR>
+let g:WhichKeyDesc_file_nav_show_recent_files = "<leader>fr Show recent files"
+
+noremap <leader>fc :action FindInPath<CR>
+let g:WhichKeyDesc_file_nav_goto_content = "<leader>fc Search for file content"
+
+noremap <leader>fl :action RecentLocations<CR>
+let g:WhichKeyDesc_file_nav_show_recent_locations = "<leader>fl Show recent locations"
+
+noremap <leader>fn :action NewClass<CR>
+let g:WhichKeyDesc_file_nav_new_class = "<leader>fn New Class"
+
 
 " Refactoring/Coding
+let g:WhichKeyDesc_refactoring = "<leader>r Refactoring menu"
+
 noremap <leader>re :action RenameElement<CR>
+let g:WhichKeyDesc_refactoring_rename = "<leader>re Rename element"
+
 noremap <leader>rm :action ExtractMethod<CR>
+let g:WhichKeyDesc_refactoring_method = "<leader>rm Extract method"
+
 noremap <leader>rv :action IntroduceVariable<CR>
+let g:WhichKeyDesc_refactoring_variable = "<leader>rv Introduce variable"
+
 noremap <leader>rf :action IntroduceField<CR>
+let g:WhichKeyDesc_refactoring_field = "<leader>rf Introduce field"
+
 noremap <leader>rs :action ChangeSignature<CR>
+let g:WhichKeyDesc_refactoring_signature = "<leader>rs Change signature"
+
 noremap <leader>rr :action Refactorings.QuickListPopupAction<CR>
+let g:WhichKeyDesc_refactoring_all = "<leader>rr Open refactorings list"
+
+let g:WhichKeyDesc_coding = "<leader>c Coding"
 
 noremap <leader>cr :action RenameElement<CR>
+let g:WhichKeyDesc_coding_rename = "<leader>cr Rename Element"
+
 noremap <leader>ca :action ShowIntentionActions<CR>
+let g:WhichKeyDesc_coding_actions = "<leader>ca Show Intention Actions"
 
-map <leader>cf <Action>(ReformatCode)
-map <leader>cf <Action>(ReformatCode)
-map <leader>cF <Action>(ShowReformatFileDialog)
+noremap <leader>cs :action FileStructurePopup<CR>
+let g:WhichKeyDesc_coding_structure = "<leader>cs File Structure Popup"
 
-" Debugging
+noremap <leader>c; :action Refactorings.QuickListPopupAction<CR>
+let g:WhichKeyDesc_coding_refactorings = "<leader>c; Open Refactorings List"
+
+noremap <leader>cf :action ReformatCode<CR>
+let g:WhichKeyDesc_coding_format = "<leader>cf Reformat Code"
+
+noremap <leader>cF :action ShowReformatFileDialog<CR>
+let g:WhichKeyDesc_coding_format_dialog = "<leader>cF Show Reformat File Dialog"
+
+
+" Debugging / Display
+let g:WhichKeyDesc_debug = "<leader>d Debug/Display"
+
 noremap <leader>db :action ToggleLineBreakpoint<CR>
+let g:WhichKeyDesc_debug_breakpoint_toggle = "<leader>db Toggle Breakpoint"
+
+noremap <leader>dc :action Resume<CR>
+let g:WhichKeyDesc_debug_resume = "<leader>dc Resume/Continue"
+
 noremap <leader>ds :action Debug<CR>
+let g:WhichKeyDesc_debug_start = "<leader>ds Start"
+
 noremap <leader>dd :action Debug<CR>
+let g:WhichKeyDesc_debug_start2 = "<leader>dd Start"
+
 noremap <leader>di :action StepInto<CR>
+let g:WhichKeyDesc_debug_step_into = "<leader>di Step Into"
+
 noremap <leader>do :action StepOver<CR>
+let g:WhichKeyDesc_debug_step_over = "<leader>do Step Over"
+
 noremap <leader>dO :action StepOut<CR>
+let g:WhichKeyDesc_debug_step_out = "<leader>dO Step Out"
+
 noremap <leader>dr :action Debugger.RemoveAllBreakpointsInFile<CR>
+let g:WhichKeyDesc_debug_breakpoint_remove_all_in_file = "<leader>dr Remove All Breakpoints (File)"
+
 noremap <leader>dR :action Debugger.RemoveAllBreakpoints<CR>
+let g:WhichKeyDesc_debug_breakpoint_remove_all = "<leader>dR Remove All Breakpoints"
+
 noremap <leader>de :action End<CR>
+let g:WhichKeyDesc_debug_end = "<leader>de End"
+
+" Display options
+noremap <leader>dz :action ToggleZenMode<CR>
+let g:WhichKeyDesc_zen_mode = "<leader>dz Toggle Zen mode"
+
+noremap <leader>df :action ToggleFullScreen<CR>
+let g:WhichKeyDesc_fullscreen = "<leader>df Toggle full screen"
 
 " Run
 noremap <leader><CR> :action Run<CR>
+let g:WhichKeyDesc_run = "<leader><CR> Run"
+
 
 " Go to code
+" nnoremap <leader>gf :action Back<CR>
+" nnoremap <leader>gb :action Forward<CR>
+
+let g:WhichKeyDesc_goto = "<leader>g Go to / Git"
+
 nnoremap <leader>gd :action GotoDeclaration<CR>
+let g:WhichKeyDesc_goto_declaration = "<leader>gd Go to Declaration"
+
 nnoremap <leader>gy :action GotoTypeDeclaration<CR>
+let g:WhichKeyDesc_goto_type_declaration = "<leader>gy Go to Type Definition"
+
 nnoremap <leader>gi :action GotoImplementation<CR>
+let g:WhichKeyDesc_goto_implementation = "<leader>gi Go to Implementation"
+
 nnoremap <leader>gu :action ShowUsages<CR>
+let g:WhichKeyDesc_goto_usages = "<leader>gu Go to Usages"
+
 nnoremap <leader>gt :action GotoTest<CR>
-nnoremap <leader>gf :action Back<CR>
-nnoremap <leader>gb :action Forward<CR>
+let g:WhichKeyDesc_goto_test = "<leader>gt Go to Test"
+
 
 " Git windows
-noremap <leader>gg :action ActivateVersionControlToolWindow<CR>
-noremap <leader>gc :action CheckinProject<CR>
+" quit with CloseContent - remapped mine to Cmd+W
+
+noremap <leader>gc :action ActivateVersionControlToolWindow<CR>
+let g:WhichKeyDesc_git_show_version_control_window = "<leader>gc Show Git Commits"
+
+noremap <leader>gg :action CheckinProject<CR>
+let g:WhichKeyDesc_git_commit = "<leader>gg Open Commits Menu"
+
+noremap <leader>gl :action Vcs.Log.OpenAnotherTabInEditor<CR>
+let g:WhichKeyDesc_git_show_log = "<leader>gl Show Git Log"
+
 noremap <leader>gb :action Git.Branches<CR>
+let g:WhichKeyDesc_git_branches = "<leader>gb Open Git branches list"
+
+noremap <leader>gh :action Vcs.ShowTabbedFileHistory<CR>
+let g:WhichKeyDesc_git_file_history = "<leader>gh Current File History"
+
 
 " Errors
 
@@ -193,14 +333,27 @@ noremap [d :action GotoPreviousError<CR>
 noremap ]e :action GotoNextError<CR>
 noremap [e :action GotoPreviousError<CR>
 
-" map ]e <Action>(GotoNextError)
-" map [e <Action>(GotoPreviousError)
+let g:WhichKeyDesc_errors_explorer = "<leader>e Errors/Explorer"
+
+" use "q" to quit
+noremap <leader>ee :NERDTreeToggle<CR>
+let g:WhichKeyDesc_explorer_toggle = "<leader>ee Toggle Explorer"
+
+noremap <leader>en :action GotoNextError<CR>
+let g:WhichKeyDesc_errors_next = "<leader>en Go to next error in solution"
+
+noremap <leader>ep :action GotoPreviousError<CR>
+let g:WhichKeyDesc_errors_prev = "<leader>ep Go to previous error in solution"
 
 " Restart IDE
+
 noremap <leader>R :action RestartIde<CR>
+let g:WhichKeyDesc_restart_ide = "<leader>R Restart IDE"
 
 " Source this file
+
 noremap <leader>fs :source ~/.ideavimrc<CR>
+let g:WhichKeyDesc_file_nav_reload_rc = "<leader>fs Source ~/.ideavimrc"
 
 if debug
   echo "Sourced File"

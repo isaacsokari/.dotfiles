@@ -122,3 +122,6 @@ nnoremap <C-j> <C-w>j
 " Easy visual indentation
 vnoremap < <gv
 vnoremap > >gv
+
+" keep cursor position afer joining line
+nnoremap J mzJ`z
