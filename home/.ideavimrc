@@ -289,6 +289,11 @@ let g:WhichKeyDesc_run = "<leader><CR> Run"
 " nnoremap <leader>gf :action Back<CR>
 " nnoremap <leader>gb :action Forward<CR>
 
+let g:WhichKeyDesc_goto_definition_default = "gd Go to Definition"
+
+nnoremap gI :action GotoImplementation<CR>
+let g:WhichKeyDesc_goto_implementation_default = "gI Go to Implementation"
+
 let g:WhichKeyDesc_goto = "<leader>g Go to / Git"
 
 nnoremap <leader>gd :action GotoDeclaration<CR>
