@@ -166,7 +166,8 @@ let g:WhichKeyDesc_search = "<leader>s Search"
 let g:WhichKeyDesc_search_everywhere = "<leader>/ Search Everywhere"
 nnoremap <leader>/ :action SearchEverywhere<CR>
 
-noremap <leader>sw viw<leader>/
+nnoremap <leader>sw viw:action SearchEverywhere<CR>
+vnoremap <leader>sw :action SearchEverywhere<CR>
 let g:WhichKeyDesc_search_word_under_cursor = "<leader>sw Find word under cursor"
 
 " notifications
