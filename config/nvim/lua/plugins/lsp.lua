@@ -18,7 +18,24 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
-      inlay_hints = { enabled = true },
+
+      -- Enable this to enable the builtin LSP inlay hints on Neovim >= 0.10.0
+      -- Be aware that you also will need to properly configure your LSP server to
+      -- provide the inlay hints.
+      inlay_hints = {
+        enabled = true,
+
+        -- filetypes for which you don't want to enable inlay hints
+        exclude = {},
+      },
+
+      -- Enable this to enable the builtin LSP code lenses on Neovim >= 0.10.0
+      -- Be aware that you also will need to properly configure your LSP server to
+      -- provide the code lenses.
+      codelens = {
+        enabled = false,
+      },
+
       ---@type lspconfig.options
       servers = {
         cssls = {},
@@ -131,6 +148,28 @@ return {
                   indent_size = "2",
                   continuation_indent_size = "2",
                 },
+              },
+            },
+          },
+        },
+
+        gopls = {
+          settings = {
+            gopls = {
+              codelenses = {
+                generate = false, -- Don't show the `go generate` lens.
+                gc_details = true, -- Show a code lens toggling the display of gc's choices.
+              },
+
+              hints = {
+                -- @see https://github.com/golang/tools/blob/master/gopls/doc/inlayHints.md
+                assignVariableTypes = false,
+                compositeLiteralFields = true,
+                compositeLiteralTypes = false,
+                constantValues = true,
+                functionTypeParameters = false,
+                parameterNames = true,
+                rangeVariableTypes = true,
               },
             },
           },
