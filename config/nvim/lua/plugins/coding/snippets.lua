@@ -26,7 +26,7 @@ return {
         end,
         expr = true, silent = true, mode = "i",
       },
-      { "<tab>", function() require("luasnip").jump(1) end, mode = "s" },
+      { "<tab>", function() require("luasnip").jump(1) end, mode = { "i", "s" } },
       { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
       { "<c-tab>",
         function()

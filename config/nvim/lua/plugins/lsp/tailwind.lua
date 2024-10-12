@@ -3,18 +3,11 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        tailwindcss = {},
-      },
-    },
-    lazy = true,
-  },
-
-  -- add colors tailwind classes
-  {
-    "NvChad/nvim-colorizer.lua",
-    opts = {
-      user_default_options = {
-        tailwind = true,
+        tailwindcss = {
+          root_dir = function(...)
+            return require("lspconfig.util").root_pattern(".git")(...)
+          end,
+        },
       },
     },
     lazy = true,
@@ -23,7 +16,7 @@ return {
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
-      { "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
+      { "roobert/tailwindcss-colorizer-cmp.nvim", opts = {} },
     },
     opts = function(_, opts)
       -- original LazyVim icon kind formatter
@@ -34,6 +27,7 @@ return {
         return require("tailwindcss-colorizer-cmp").formatter(entry, item)
       end
     end,
+
     lazy = true,
   },
 }
