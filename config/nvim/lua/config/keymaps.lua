@@ -61,15 +61,18 @@ keymap.set("n", "<leader>fx", "<cmd>!chmod +x %<CR>", { silent = true, desc = "M
 keymap.set("n", "<leader>fy", "<cmd>!echo % | pbcopy<CR>", { silent = true, desc = "Copy Current Filename" })
 
 -- floating terminal
-local lazyterm = function()
-  Util.terminal(nil, { cwd = Util.root() })
-end
-keymap.set("n", "<leader>ft", lazyterm, { desc = "Terminal (root dir)" })
 keymap.set("n", "<leader>fT", function()
-  Util.terminal()
+  Snacks.terminal()
 end, { desc = "Terminal (cwd)" })
-keymap.set("n", "<c-/>", lazyterm, { desc = "Terminal (root dir)" })
-keymap.set("n", "<c-_>", lazyterm, { desc = "which_key_ignore" })
+keymap.set("n", "<leader>ft", function()
+  Snacks.terminal(nil, { cwd = LazyVim.root() })
+end, { desc = "Terminal (Root Dir)" })
+keymap.set("n", "<c-/>", function()
+  Snacks.terminal(nil, { cwd = LazyVim.root() })
+end, { desc = "Terminal (Root Dir)" })
+keymap.set("n", "<c-_>", function()
+  Snacks.terminal(nil, { cwd = LazyVim.root() })
+end, { desc = "which_key_ignore" })
 
 -- Terminal keymap.setpings
 keymap.set("t", "<esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
@@ -92,14 +95,14 @@ keymap.set("n", "<leader>|", "<C-W>v", { desc = "Split window right", remap = tr
 
 -- lazygit
 keymap.set("n", "<leader>gG", function()
-  LazyVim.lazygit({ cwd = LazyVim.root.git() })
+  Snacks.lazygit({ cwd = Snacks.root.git() })
 end, { desc = "Lazygit (Root Dir)" })
 keymap.set("n", "<leader>gg", function()
-  LazyVim.lazygit()
+  Snacks.lazygit()
 end, { desc = "Lazygit (cwd)" })
-keymap.set("n", "<leader>gb", LazyVim.lazygit.blame_line, { desc = "Git Blame Line" })
+keymap.set("n", "<leader>gb", Snacks.git.blame_line, { desc = "Git Blame Line" })
 
 keymap.set("n", "<leader>gf", function()
   local git_path = vim.api.nvim_buf_get_name(0)
-  LazyVim.lazygit({ args = { "-f", vim.trim(git_path) } })
+  Snacks.lazygit({ args = { "-f", vim.trim(git_path) } })
 end, { desc = "Lazygit Current File History" })
