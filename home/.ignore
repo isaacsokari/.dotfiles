@@ -2,3 +2,4 @@
 
 # ignore vendor files in go projects
 vendor
+**/*_templ.{go,txt}
