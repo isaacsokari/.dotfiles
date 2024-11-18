@@ -57,3 +57,12 @@ vim.api.nvim_create_autocmd("FileType", {
     end
   end,
 })
+
+-- disable autoformat in templ buffers
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "templ",
+  callback = function(e)
+    ---@diagnostic disable-next-line: no-unknown
+    vim.b[e.buf].autoformat = false
+  end,
+})
