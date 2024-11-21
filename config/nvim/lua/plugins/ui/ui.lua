@@ -76,23 +76,23 @@ return {
   },
 
   {
-    "nvimdev/dashboard-nvim",
-    event = "VimEnter",
-    opts = function(_, opts)
-      -- generated the logo using
-      -- https://patorjk.com/software/taag/#p=display&h=0&f=ANSI%20Shadow&t=TS
-      local logo = [[
+    "folke/snacks.nvim",
+    opts = {
+      dashboard = {
+        preset = {
+          -- generated the logo using
+          -- https://patorjk.com/software/taag/#p=display&h=0&f=ANSI%20Shadow&t=TS
+          header = [[
 ████████╗███████╗
 ╚══██╔══╝██╔════╝
    ██║   ███████╗
    ██║   ╚════██║
    ██║   ███████║
    ╚═╝   ╚══════╝
-      ]]
-
-      logo = string.rep("\n", 8) .. logo .. "\n\n"
-      opts.config.header = vim.split(logo, "\n")
-    end,
+      ]],
+        },
+      },
+    },
   },
 
   {
