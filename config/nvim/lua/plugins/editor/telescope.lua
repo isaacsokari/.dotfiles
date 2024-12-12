@@ -1,3 +1,5 @@
+local multigrep = require("ts.utils.telescope.multigrep")
+
 ---@diagnostic disable: no-unknown
 local function telescope_buffer_dir()
   return vim.fn.expand("%:p:h")
@@ -51,7 +53,7 @@ return {
           "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>",
           desc = "Switch Buffer",
         },
-        { "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "Grep" },
+
         { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
         { "<leader><space>", find_files, desc = "Find Files" },
 
@@ -80,7 +82,9 @@ return {
         { "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
         { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
 
-        { "<leader>sw", "<cmd>Telescope grep_string word_match=-w<cr>", desc = "Word (cwd)" },
+        { "<leader>/", multigrep, desc = "MultiGrep" },
+        { "<leader>sw", "<cmd>Telescope grep_string word_match=-w<cr>", desc = "Word" },
+        { "<leader>sw", "<cmd>Telescope grep_string word_match=-w<cr>", mode = "v", desc = "Selection" },
 
         { "<leader>uC", "<cmd>Telescope colorscheme enable_preview=true<cr>", desc = "Colorscheme with preview" },
         {
@@ -197,7 +201,6 @@ return {
 
       opts.defaults = vim.tbl_deep_extend("force", opts.defaults, {
         wrap_results = true,
-        theme = "ivy",
         layout_strategy = "vertical", -- :h telescope.layout
         layout_config = { prompt_position = "top" },
         sorting_strategy = "ascending",
@@ -208,11 +211,17 @@ return {
       })
 
       opts.pickers = {
-        find_files = {
-          theme = "ivy",
-        },
+        -- find_files = {
+        --   theme = "ivy",
+        -- },
+        -- live_grep = {
+        --   theme = "ivy",
+        -- },
+        -- grep_string = {
+        --   theme = "ivy",
+        -- },
         diagnostics = {
-          theme = "ivy",
+          -- theme = "ivy",
           initial_mode = "normal",
           layout_config = {
             -- preview_cutoff = 9999,
