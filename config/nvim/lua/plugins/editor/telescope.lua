@@ -1,17 +1,47 @@
-local Util = require("lazyvim.util")
-
+---@diagnostic disable: no-unknown
 local function telescope_buffer_dir()
   return vim.fn.expand("%:p:h")
+end
+
+local lsp_symbols = {
+  "Class",
+  "Constructor",
+  "Enum",
+  "Field",
+  "Function",
+  "Interface",
+  "Method",
+  "Module",
+  "Namespace",
+  "Property",
+  "Struct",
+  "Trait",
+}
+
+local telescope_builtin = require("telescope.builtin")
+
+local cwd = function()
+  return vim.uv.cwd()
+end
+
+local find_files = function()
+  telescope_builtin.find_files({ cwd = cwd() })
+end
+
+local find_recent_files = function()
+  telescope_builtin.oldfiles({ cwd = cwd() })
+end
+
+local find_config_files = function()
+  telescope_builtin.find_files({ cwd = vim.fn.stdpath("config") })
 end
 
 return {
   {
     "telescope.nvim",
     dependencies = {
-      {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make",
-      },
+      "nvim-lua/plenary.nvim",
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     },
 
     keys = function()
@@ -23,15 +53,13 @@ return {
         },
         { "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "Grep" },
         { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
-        { "<leader><space>", Util.pick("files"), desc = "Find Files (root dir)" },
+        { "<leader><space>", find_files, desc = "Find Files" },
 
         -- find
         { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
-        { "<leader>fc", Util.pick.config_files(), desc = "Find Config File" },
-        { "<leader>ff", Util.pick("files"), desc = "Find Files (root dir)" },
-        { "<leader>fF", Util.pick("files", { cwd = nil }), desc = "Find Files (cwd)" },
-        { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
-        { "<leader>fR", Util.pick("oldfiles", { cwd = vim.loop.cwd() }), desc = "Recent (cwd)" },
+        { "<leader>fc", find_config_files, desc = "Find Config File" },
+        { "<leader>ff", find_files, desc = "Find Files" },
+        { "<leader>fr", find_recent_files, desc = "Recent Files (cwd)" },
 
         -- git
         { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "commits" },
@@ -45,26 +73,21 @@ return {
         { "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands" },
         { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document diagnostics" },
         { "<leader>sD", "<cmd>Telescope diagnostics<cr>", desc = "Workspace diagnostics" },
-        { "<leader>sg", Util.pick("live_grep"), desc = "Grep (root dir)" },
-        { "<leader>sG", Util.pick("live_grep", { cwd = nil }), desc = "Grep (cwd)" },
         { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
         { "<leader>sH", "<cmd>Telescope highlights<cr>", desc = "Search Highlight Groups" },
         { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
         { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
         { "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
         { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
-        -- { "<leader>sr", "<cmd>Telescope resume<cr>", desc = "Resume" },
-        -- { "<leader>sR", "<cmd>Telescope resume<cr>", desc = "Resume" },
-        { "<leader>sw", Util.pick("grep_string", { word_match = "-w" }), desc = "Word (root dir)" },
-        { "<leader>sW", Util.pick("grep_string", { cwd = nil, word_match = "-w" }), desc = "Word (cwd)" },
-        { "<leader>sw", Util.pick("grep_string"), mode = "v", desc = "Selection (root dir)" },
-        { "<leader>sW", Util.pick("grep_string", { cwd = nil }), mode = "v", desc = "Selection (cwd)" },
-        { "<leader>uC", Util.pick("colorscheme", { enable_preview = true }), desc = "Colorscheme with preview" },
+
+        { "<leader>sw", "<cmd>Telescope grep_string word_match=-w<cr>", desc = "Word (cwd)" },
+
+        { "<leader>uC", "<cmd>Telescope colorscheme enable_preview=true<cr>", desc = "Colorscheme with preview" },
         {
           "<leader>ss",
           function()
             require("telescope.builtin").lsp_document_symbols({
-              symbols = require("lazyvim.config").get_kind_filter(),
+              symbols = lsp_symbols,
             })
           end,
           desc = "Goto Symbol",
@@ -73,7 +96,7 @@ return {
           "<leader>sS",
           function()
             require("telescope.builtin").lsp_dynamic_workspace_symbols({
-              symbols = require("lazyvim.config").get_kind_filter(),
+              symbols = lsp_symbols,
             })
           end,
           desc = "Goto Symbol (Workspace)",
@@ -101,7 +124,8 @@ return {
           "<leader>fP",
           function()
             require("telescope.builtin").find_files({
-              cwd = require("lazy.core.config").options.root,
+              ---@diagnostic disable-next-line: param-type-mismatch
+              cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy"),
             })
           end,
           desc = "Find Plugin File",
@@ -173,6 +197,7 @@ return {
 
       opts.defaults = vim.tbl_deep_extend("force", opts.defaults, {
         wrap_results = true,
+        theme = "ivy",
         layout_strategy = "vertical", -- :h telescope.layout
         layout_config = { prompt_position = "top" },
         sorting_strategy = "ascending",
@@ -183,16 +208,21 @@ return {
       })
 
       opts.pickers = {
+        find_files = {
+          theme = "ivy",
+        },
         diagnostics = {
           theme = "ivy",
           initial_mode = "normal",
           layout_config = {
-            preview_cutoff = 9999,
+            -- preview_cutoff = 9999,
           },
         },
       }
 
       opts.extensions = {
+        fzf = {},
+
         file_browser = {
           -- theme = "dropdown",
           -- disables netrw and use telescope-file-browser in its place
@@ -207,12 +237,12 @@ return {
                 vim.cmd("startinsert")
               end,
               ["<C-u>"] = function(prompt_bufnr)
-                for i = 1, 10 do
+                for _i = 1, 10 do
                   actions.move_selection_previous(prompt_bufnr)
                 end
               end,
               ["<C-d>"] = function(prompt_bufnr)
-                for i = 1, 10 do
+                for _i = 1, 10 do
                   actions.move_selection_next(prompt_bufnr)
                 end
               end,

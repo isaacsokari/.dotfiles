@@ -2,10 +2,8 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
-local Util = require("lazyvim.util")
-
 ---@diagnostic disable-next-line: unused-local
-local discipline = require("ts.discipline")
+local discipline = require("ts.utils.discipline")
 -- discipline.cowboy()
 
 local keymap = vim.keymap

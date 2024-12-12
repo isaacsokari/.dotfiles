@@ -1,4 +1,12 @@
-local Util = require("lazyvim.util")
+local icons = require("ts.utils.ui.icons")
+
+---@return {get_fg?:string}?
+local function get_fg(name)
+  local hl = vim.api.nvim_get_hl(0, { name = name, link = false })
+  ---@diagnostic disable-next-line: undefined-field
+  local fg = hl and hl.fg or hl.foreground
+  return fg and { fg = string.format("#%06x", fg) } or nil
+end
 
 return {
   -- messages, cmdline and the popupmenu
@@ -113,8 +121,6 @@ return {
       local lualine_require = require("lualine_require")
       lualine_require.require = require
 
-      local icons = require("lazyvim.config").icons
-
       vim.o.laststatus = vim.g.lualine_laststatus
 
       return {
@@ -131,7 +137,6 @@ return {
           lualine_b = { "branch" },
 
           lualine_c = {
-            Util.lualine.root_dir(),
             {
               "diagnostics",
               symbols = {
@@ -141,34 +146,37 @@ return {
                 hint = icons.diagnostics.Hint,
               },
             },
-            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-            { Util.lualine.pretty_path() },
           },
 
           lualine_y = {
-          -- stylua: ignore
-          {
-            function() return require("noice").api.status.command.get() end,
-            cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
-            color = Util.ui.fg("Statement"),
-          },
-          -- stylua: ignore
-          {
-            function() return require("noice").api.status.mode.get() end,
-            cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
-            color = Util.ui.fg("Constant"),
-          },
-          -- stylua: ignore
-          {
-            function() return "  " .. require("dap").status() end,
-            cond = function () return package.loaded["dap"] and require("dap").status() ~= "" end,
-            color = Util.ui.fg("Debug"),
-          },
+
+            -- stylua: ignore
+            {
+              function() return require("noice").api.status.command.get() end,
+              cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
+              color = get_fg("Statement"),
+            },
+
+            -- stylua: ignore
+            {
+              function() return require("noice").api.status.mode.get() end,
+              cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
+              color = get_fg("Constant"),
+            },
+
+            -- stylua: ignore
+            {
+              function() return "  " .. require("dap").status() end,
+              cond = function () return package.loaded["dap"] and require("dap").status() ~= "" end,
+              color = get_fg("Debug"),
+            },
+
             {
               require("lazy.status").updates,
               cond = require("lazy.status").has_updates,
-              color = Util.ui.fg("Special"),
+              color = get_fg("Special"),
             },
+
             {
               "diff",
               symbols = {
@@ -188,11 +196,14 @@ return {
               end,
             },
           },
+
           lualine_z = {
             { "progress", separator = " ", padding = { left = 1, right = 0 } },
             { "location", padding = { left = 0, right = 1 } },
           },
         },
+
+        -- stylua: ignore
         extensions = { "lazy" },
       }
     end,
