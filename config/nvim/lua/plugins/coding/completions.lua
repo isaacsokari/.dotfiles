@@ -1,3 +1,4 @@
+local icons = require("ts.config.icons")
 local nvim_cmp = {
   "hrsh7th/nvim-cmp",
   version = false, -- last release is way too old
@@ -53,9 +54,9 @@ local nvim_cmp = {
 
       formatting = {
         format = function(_, item)
-          local icons = require("lazyvim.config").icons.kinds
-          if icons[item.kind] then
-            item.kind = icons[item.kind] .. item.kind
+          local lsp_icons = icons.kinds
+          if lsp_icons[item.kind] then
+            item.kind = lsp_icons[item.kind] .. item.kind
           end
           return item
         end,
