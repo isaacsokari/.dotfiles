@@ -1,24 +1,10 @@
 local multigrep = require("ts.utils.telescope.multigrep")
+local lsp_symbols = require("ts.config.lsp_symbols")
 
 ---@diagnostic disable: no-unknown
 local function telescope_buffer_dir()
   return vim.fn.expand("%:p:h")
 end
-
-local lsp_symbols = {
-  "Class",
-  "Constructor",
-  "Enum",
-  "Field",
-  "Function",
-  "Interface",
-  "Method",
-  "Module",
-  "Namespace",
-  "Property",
-  "Struct",
-  "Trait",
-}
 
 local telescope_builtin = require("telescope.builtin")
 
