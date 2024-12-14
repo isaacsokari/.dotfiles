@@ -68,7 +68,8 @@ return {
 		local wk = require("which-key")
 		wk.setup(opts)
 		if not vim.tbl_isempty(opts.defaults) then
-			vim.notify("which-key: opts.defaults is deprecated. Please use opts.spec instead.", "warn")
+			vim.notify("opts.defaults is deprecated. Please use opts.spec instead.", "warn", { title = "which-key" })
+			---@diagnostic disable-next-line: deprecated
 			wk.register(opts.defaults)
 		end
 	end,
