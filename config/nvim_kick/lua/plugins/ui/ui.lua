@@ -15,16 +15,16 @@ return {
     "akinsho/bufferline.nvim",
     event = "VeryLazy",
     keys = {
-      { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle Pin" },
+      { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>",            desc = "Toggle Pin" },
       { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete Non-Pinned Buffers" },
-      { "<leader>br", "<Cmd>BufferLineCloseRight<CR>", desc = "Delete Buffers to the Right" },
-      { "<leader>bl", "<Cmd>BufferLineCloseLeft<CR>", desc = "Delete Buffers to the Left" },
-      { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
-      { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
-      { "[b", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
-      { "]b", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
-      { "[B", "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer prev" },
-      { "]B", "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer next" },
+      { "<leader>br", "<Cmd>BufferLineCloseRight<CR>",           desc = "Delete Buffers to the Right" },
+      { "<leader>bl", "<Cmd>BufferLineCloseLeft<CR>",            desc = "Delete Buffers to the Left" },
+      { "<S-h>",      "<cmd>BufferLineCyclePrev<cr>",            desc = "Prev Buffer" },
+      { "<S-l>",      "<cmd>BufferLineCycleNext<cr>",            desc = "Next Buffer" },
+      { "[b",         "<cmd>BufferLineCyclePrev<cr>",            desc = "Prev Buffer" },
+      { "]b",         "<cmd>BufferLineCycleNext<cr>",            desc = "Next Buffer" },
+      { "[B",         "<cmd>BufferLineMovePrev<cr>",             desc = "Move buffer prev" },
+      { "]B",         "<cmd>BufferLineMoveNext<cr>",             desc = "Move buffer next" },
     },
     opts = {
       options = {
@@ -37,7 +37,7 @@ return {
         diagnostics_indicator = function(_, _, diag)
           local diagnostics_icons = icons.diagnostics
           local ret = (diag.error and diagnostics_icons.Error .. diag.error .. " " or "")
-            .. (diag.warning and diagnostics_icons.Warn .. diag.warning or "")
+              .. (diag.warning and diagnostics_icons.Warn .. diag.warning or "")
           return vim.trim(ret)
         end,
         offsets = {
@@ -71,6 +71,7 @@ return {
   {
     "lukas-reineke/indent-blankline.nvim",
     opts = function()
+      ---@diagnostic disable-next-line: missing-fields
       require('snacks').toggle({
         name = "Indention Guides",
         get = function()
@@ -147,15 +148,15 @@ return {
     },
     -- stylua: ignore
     keys = {
-      { "<leader>sn", "", desc = "+noice"},
-      { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Redirect Cmdline" },
-      { "<leader>snl", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
-      { "<leader>snh", function() require("noice").cmd("history") end, desc = "Noice History" },
-      { "<leader>sna", function() require("noice").cmd("all") end, desc = "Noice All" },
-      { "<leader>snd", function() require("noice").cmd("dismiss") end, desc = "Dismiss All" },
-      { "<leader>snt", function() require("noice").cmd("pick") end, desc = "Noice Picker (Telescope/FzfLua)" },
-      { "<c-f>", function() if not require("noice.lsp").scroll(4) then return "<c-f>" end end, silent = true, expr = true, desc = "Scroll Forward", mode = {"i", "n", "s"} },
-      { "<c-b>", function() if not require("noice.lsp").scroll(-4) then return "<c-b>" end end, silent = true, expr = true, desc = "Scroll Backward", mode = {"i", "n", "s"}},
+      { "<leader>sn",  "",                                                                            desc = "+noice" },
+      { "<S-Enter>",   function() require("noice").redirect(vim.fn.getcmdline()) end,                 mode = "c",                              desc = "Redirect Cmdline" },
+      { "<leader>snl", function() require("noice").cmd("last") end,                                   desc = "Noice Last Message" },
+      { "<leader>snh", function() require("noice").cmd("history") end,                                desc = "Noice History" },
+      { "<leader>sna", function() require("noice").cmd("all") end,                                    desc = "Noice All" },
+      { "<leader>snd", function() require("noice").cmd("dismiss") end,                                desc = "Dismiss All" },
+      { "<leader>snt", function() require("noice").cmd("pick") end,                                   desc = "Noice Picker (Telescope/FzfLua)" },
+      { "<c-f>",       function() if not require("noice.lsp").scroll(4) then return "<c-f>" end end,  silent = true,                           expr = true,              desc = "Scroll Forward",  mode = { "i", "n", "s" } },
+      { "<c-b>",       function() if not require("noice.lsp").scroll(-4) then return "<c-b>" end end, silent = true,                           expr = true,              desc = "Scroll Backward", mode = { "i", "n", "s" } },
     },
     config = function(_, opts)
       -- HACK: noice shows messages from before it was enabled,
@@ -188,42 +189,42 @@ return {
     keys = { { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" } },
   },
 
---   {
---     "folke/snacks.nvim",
---     opts = {
---       dashboard = {
---         preset = {
---           -- generated the logo using
---           -- https://patorjk.com/software/taag/#p=display&h=0&f=ANSI%20Shadow&t=TS
---           header = [[
--- ████████╗███████╗
--- ╚══██╔══╝██╔════╝
---    ██║   ███████╗
---    ██║   ╚════██║
---    ██║   ███████║
---    ╚═╝   ╚══════╝
---       ]],
---         },
---
---         keys = {
---           { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
---           { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
---           { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
---           { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
---           {
---             icon = " ",
---             key = "c",
---             desc = "Config",
---             action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
---           },
---           { icon = " ", key = "s", desc = "Restore Session", section = "session" },
---           { icon = " ", key = "x", desc = "Lazy Extras", action = ":LazyExtras" },
---           { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
---           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
---         }
---       },
---     },
---   },
+  --   {
+  --     "folke/snacks.nvim",
+  --     opts = {
+  --       dashboard = {
+  --         preset = {
+  --           -- generated the logo using
+  --           -- https://patorjk.com/software/taag/#p=display&h=0&f=ANSI%20Shadow&t=TS
+  --           header = [[
+  -- ████████╗███████╗
+  -- ╚══██╔══╝██╔════╝
+  --    ██║   ███████╗
+  --    ██║   ╚════██║
+  --    ██║   ███████║
+  --    ╚═╝   ╚══════╝
+  --       ]],
+  --         },
+  --
+  --         keys = {
+  --           { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
+  --           { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+  --           { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+  --           { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
+  --           {
+  --             icon = " ",
+  --             key = "c",
+  --             desc = "Config",
+  --             action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
+  --           },
+  --           { icon = " ", key = "s", desc = "Restore Session", section = "session" },
+  --           { icon = " ", key = "x", desc = "Lazy Extras", action = ":LazyExtras" },
+  --           { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
+  --           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
+  --         }
+  --       },
+  --     },
+  --   },
 
   {
     "nvim-lualine/lualine.nvim",
@@ -274,14 +275,18 @@ return {
 
             -- stylua: ignore
             {
+              ---@diagnostic disable-next-line: undefined-field
               function() return require("noice").api.status.command.get() end,
+              ---@diagnostic disable-next-line: undefined-field
               cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
               color = get_fg("Statement"),
             },
 
             -- stylua: ignore
             {
+              ---@diagnostic disable-next-line: undefined-field
               function() return require("noice").api.status.mode.get() end,
+              ---@diagnostic disable-next-line: undefined-field
               cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
               color = get_fg("Constant"),
             },
@@ -289,7 +294,7 @@ return {
             -- stylua: ignore
             {
               function() return "  " .. require("dap").status() end,
-              cond = function () return package.loaded["dap"] and require("dap").status() ~= "" end,
+              cond = function() return package.loaded["dap"] and require("dap").status() ~= "" end,
               color = get_fg("Debug"),
             },
 
@@ -320,7 +325,7 @@ return {
           },
 
           lualine_z = {
-            { "progress", separator = " ", padding = { left = 1, right = 0 } },
+            { "progress", separator = " ",                  padding = { left = 1, right = 0 } },
             { "location", padding = { left = 0, right = 1 } },
           },
         },
@@ -370,9 +375,10 @@ return {
       }
 
       for kind, symbol in pairs(defaults.symbols.icons) do
-        local icons = require("ts.config.icons").kinds
-	icons[kind] = {
-          icon = icons.kinds[kind] or symbol.icon,
+        local icon_kinds = require("ts.config.icons").kinds
+        ---@diagnostic disable-next-line: assign-type-mismatch
+        icon_kinds[kind] = {
+          icon = icon_kinds[kind] or symbol.icon,
           hl = symbol.hl,
         }
       end
