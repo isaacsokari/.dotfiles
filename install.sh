@@ -67,6 +67,7 @@ echo "Installing Config"
 echo "======================================================================="
 
 link_config "nvim"
+link_config "nvim_kick"
 link_config "tmux"
 link_config "ohmyposh"
 link_config "starship.toml"
