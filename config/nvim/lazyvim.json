@@ -1,14 +1,9 @@
 {
   "extras": [
-    "lazyvim.plugins.extras.coding.mini-surround",
-    "lazyvim.plugins.extras.editor.outline",
-    "lazyvim.plugins.extras.formatting.prettier",
-    "lazyvim.plugins.extras.lang.go",
-    "lazyvim.plugins.extras.lang.markdown",
-    "lazyvim.plugins.extras.util.dot"
+
   ],
   "news": {
-    "NEWS.md": "7429"
+    "NEWS.md": "10960"
   },
   "version": 7
 }
