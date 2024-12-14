@@ -82,6 +82,8 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 alias ls='ls --color'
 alias c='clear'
 alias e='nvim'
+alias ne='NVIM_APPNAME=nvim_kick nvim'
+
 alias v="nvim"
 if which lazygit > /dev/null; then alias lg="lazygit"; fi
 
