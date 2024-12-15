@@ -17,7 +17,6 @@ return {
   -- hunks in a commit.
   {
     "lewis6991/gitsigns.nvim",
-    event = "LazyFile",
     opts = {
       signs = {
         add = { text = "▎" },

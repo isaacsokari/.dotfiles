@@ -3,6 +3,7 @@ return {
 
   {
     "catppuccin/nvim",
+    priority = 1000,
     -- lazy = true,
     name = "catppuccin",
     opts = {
@@ -57,22 +58,7 @@ return {
     },
 
     config = function()
-      -- vim.cmd.colorscheme("catppuccin")
-      vim.api.nvim_set_hl(0, "Folded", { link = "FoldColumn" })
-    end,
-  },
-
-  -- Configure LazyVim to load rose-pine
-  {
-    "LazyVim/LazyVim",
-    opts = {
-      -- colorscheme = "rose-pine",
-      colorscheme = "catppuccin",
-      -- colorscheme = "tokyonight",
-    },
-    config = function(_, opts)
-      require("lazyvim").setup(opts)
-
+      vim.cmd.colorscheme("catppuccin")
       vim.api.nvim_set_hl(0, "Folded", { link = "FoldColumn" })
     end,
   },
