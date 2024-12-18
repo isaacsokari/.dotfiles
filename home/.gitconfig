@@ -110,7 +110,7 @@
 	default = matching
 
 [pull]
-	rebase = true
+	; rebase = true
 
 [init]
 	defaultBranch = main
