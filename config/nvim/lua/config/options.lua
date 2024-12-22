@@ -1,7 +1,6 @@
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
-
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
 
@@ -9,7 +8,6 @@ vim.g.markdown_recommended_style = 0
 -- -- add undercurl
 -- vim.cmd([[let &t_Cs = "\e[4:3m"]])
 -- vim.cmd([[let &t_Ce = "\e[4:0m"]])
-
 
 -- auto format
 vim.g.autoformat = true
@@ -67,12 +65,12 @@ opt.confirm = true -- Confirm to save changes before exiting modified buffer
 opt.cursorline = true -- Enable highlighting of the current line
 
 opt.fillchars = {
-  foldopen = "",
-  foldclose = "",
-  fold = " ",
-  foldsep = " ",
-  diff = "╱",
-  eob = " ",
+	foldopen = "",
+	foldclose = "",
+	fold = " ",
+	foldsep = " ",
+	diff = "╱",
+	eob = " ",
 }
 
 opt.foldlevel = 99
@@ -109,7 +107,6 @@ opt.splitkeep = "screen"
 opt.splitright = true
 opt.splitbelow = true
 
-
 -- show status column, and replace fold number
 opt.statuscolumn = [[%!v:lua.require'snacks.statuscolumn'.get()]]
 
@@ -138,7 +135,6 @@ opt.shiftround = true -- Round indent
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 opt.ignorecase = true
 opt.smartcase = true -- Don't ignore case with capitals
-
 
 -- Enable break indent for wrapped lines
 opt.breakindent = true

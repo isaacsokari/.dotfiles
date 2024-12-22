@@ -1,9 +1,9 @@
 P = function(value)
-  if type(value) == "table" then
-    print(vim.inspect(value))
-  else
-    print(value)
-  end
+	if type(value) == "table" then
+		print(vim.inspect(value))
+	else
+		print(value)
+	end
 
-  return value
+	return value
 end

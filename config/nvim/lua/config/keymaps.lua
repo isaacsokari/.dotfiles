@@ -110,10 +110,10 @@ keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clea
 -- Clear search, diff update and redraw
 -- taken from runtime/lua/_editor.lua
 keymap.set(
-  "n",
-  "<leader>ur",
-  "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
-  { desc = "Redraw / Clear hlsearch / Diff Update" }
+	"n",
+	"<leader>ur",
+	"<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
+	{ desc = "Redraw / Clear hlsearch / Diff Update" }
 )
 
 -- Clear highlights on search when pressing <Esc> in normal mode
@@ -161,17 +161,17 @@ keymap.set("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
 
 -- formatting
 keymap.set({ "n", "v" }, "<leader>cf", function()
-  -- LazyVim.format({ force = true })
-  vim.lsp.buf.format({ force = true })
+	-- LazyVim.format({ force = true })
+	vim.lsp.buf.format({ force = true })
 end, { desc = "Format" })
 
 -- diagnostic
 local diagnostic_goto = function(next, severity)
-  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-  severity = severity and vim.diagnostic.severity[severity] or nil
-  return function()
-    go({ severity = severity })
-  end
+	local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+	severity = severity and vim.diagnostic.severity[severity] or nil
+	return function()
+		go({ severity = severity })
+	end
 end
 keymap.set("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 keymap.set("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
