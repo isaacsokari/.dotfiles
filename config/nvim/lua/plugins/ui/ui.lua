@@ -35,9 +35,13 @@ return {
 				diagnostics = "nvim_lsp",
 				always_show_bufferline = false,
 				diagnostics_indicator = function(_, _, diag)
-					local diagnostics_icons = icons.diagnostics
-					local ret = (diag.error and diagnostics_icons.Error .. diag.error .. " " or "")
-						.. (diag.warning and diagnostics_icons.Warn .. diag.warning or "")
+					-- local diagnostics_icons = icons.diagnostics
+					-- local ret = (diag.error and diagnostics_icons.Error .. diag.error .. " " or "")
+					-- 	.. (diag.warning and diagnostics_icons.Warn .. diag.warning or "")
+
+					local ret = (diag.error and "E:" .. diag.error .. " " or "")
+						.. (diag.warning and "W:" .. diag.warning or "")
+
 					return vim.trim(ret)
 				end,
 				offsets = {
@@ -195,12 +199,16 @@ return {
 		"nvim-lualine/lualine.nvim",
 		event = "VeryLazy",
 		init = function()
+			---@diagnostic disable-next-line: no-unknown
 			vim.g.lualine_laststatus = vim.o.laststatus
+			---@diagnostic disable-next-line: no-unknown
 			if vim.fn.argc(-1) > 0 then
 				-- set an empty statusline till lualine loads
+				---@diagnostic disable-next-line: no-unknown
 				vim.o.statusline = " "
 			else
 				-- hide the statusline on the starter page
+				---@diagnostic disable-next-line: no-unknown
 				vim.o.laststatus = 0
 			end
 		end,
@@ -227,12 +235,16 @@ return {
 					lualine_c = {
 						{
 							"diagnostics",
-							symbols = {
-								error = icons.diagnostics.Error,
-								warn = icons.diagnostics.Warn,
-								info = icons.diagnostics.Info,
-								hint = icons.diagnostics.Hint,
-							},
+
+							icons_enabled = false, -- disable icons
+
+							-- -- if I wanted icons, I'd have used these
+							-- symbols = {
+							-- 	error = icons.diagnostics.Error,
+							-- 	warn = icons.diagnostics.Warn,
+							-- 	info = icons.diagnostics.Info,
+							-- 	hint = icons.diagnostics.Hint,
+							-- },
 						},
 					},
 
@@ -272,9 +284,13 @@ return {
 						{
 							"diff",
 							symbols = {
-								added = icons.git.added,
-								modified = icons.git.modified,
-								removed = icons.git.removed,
+								-- added = icons.git.added,
+								-- modified = icons.git.modified,
+								-- removed = icons.git.removed,
+
+								added = "A:",
+								modified = "M:",
+								removed = "R:",
 							},
 							source = function()
 								local gitsigns = vim.b.gitsigns_status_dict
