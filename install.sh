@@ -70,6 +70,7 @@ link_config "nvim"
 link_config "tmux"
 link_config "ohmyposh"
 link_config "starship.toml"
+link_config "ghostty"
 
 echo ""
 echo ""

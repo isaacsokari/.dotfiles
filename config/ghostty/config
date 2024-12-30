@@ -1,0 +1,11 @@
+theme = catppuccin-mocha
+
+font-size = 14.0
+
+font-family = Cascadia Code Regular SemiLight
+
+# hidden, transparent, tabs, native
+macos-titlebar-style = hidden
+
+background-opacity = 0.95
+background-blur-radius = 20
