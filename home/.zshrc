@@ -38,7 +38,7 @@ if [[ -d ~/.asdf ]]; then
   # append completions to fpath
   fpath=(~/.asdf/completions $fpath)
 
-  if asdf list java > /dev/null 2>%1; then
+  if asdf list java > /dev/null 2>&1; then
     . ~/.asdf/plugins/java/set-java-home.zsh
   fi
 fi
