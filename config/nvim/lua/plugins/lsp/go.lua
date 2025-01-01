@@ -22,6 +22,11 @@ return {
 							-- disable adding placeholders to completion
 							usePlaceholders = false,
 
+							completeUnimported = true,
+							staticcheck = true,
+							directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+							semanticTokens = true,
+
 							hints = {
 								-- @see https://github.com/golang/tools/blob/master/gopls/doc/inlayHints.md
 								assignVariableTypes = false,
