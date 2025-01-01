@@ -110,7 +110,7 @@ return {
 		},
 
 		keys = {
-			{ "<leader>uS", "<cmd>TSContextToggle<cr>", { mode = "n", desc = "Toggle Treesitter Context" } },
+			{ "<leader>uS", "<cmd>TSContextToggle<cr>", mode = "n", desc = "Toggle Treesitter Context" },
 		},
 	},
 
