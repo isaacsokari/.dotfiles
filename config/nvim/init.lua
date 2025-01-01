@@ -61,3 +61,6 @@ require("lazy").setup({
 
 -- load global variables
 require("ts.globals")
+
+-- load snippets
+require("ts.snippets")
