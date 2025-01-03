@@ -21,6 +21,7 @@ require("config.options")
 require("config.keymaps")
 
 require("lazy").setup({
+	install = { colorscheme = { "catppuccin-mocha" } },
 
 	spec = {
 		{ import = "plugins.coding" },

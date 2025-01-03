@@ -58,7 +58,7 @@ return {
 		},
 
 		config = function()
-			vim.cmd.colorscheme("catppuccin")
+			vim.cmd.colorscheme("catppuccin-mocha")
 			vim.api.nvim_set_hl(0, "Folded", { link = "FoldColumn" })
 		end,
 	},
