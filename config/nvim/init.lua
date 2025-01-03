@@ -21,6 +21,10 @@ require("config.options")
 require("config.keymaps")
 
 require("lazy").setup({
+	-- automatically check for plugin updates
+	checker = { enabled = true },
+
+	install = { colorscheme = { "catppuccin-mocha" } },
 
 	spec = {
 		{ import = "plugins.coding" },
