@@ -1,4 +1,3 @@
-local icons = require("ts.config.icons")
 local common_utils = require("ts.utils.common")
 
 return {
@@ -229,14 +228,11 @@ return {
 						end
 					end
 
-					-- -- The following code creates a keymap to toggle inlay hints in your
-					-- -- code, if the language server you are using supports them
-					-- --
-					-- -- This may be unwanted, since they displace some of your code
+					-- this is managed by snacks.nvim
 					-- if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-					-- 	map("<leader>th", function()
+					-- 	map("<leader>uh", function()
 					-- 		vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
-					-- 	end, "[T]oggle Inlay [H]ints")
+					-- 	end, "Toggle Inlay [H]ints")
 					-- end
 
 					if client and common_utils.has("snacks") then

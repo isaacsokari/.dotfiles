@@ -83,6 +83,7 @@ opt.grepprg = "rg --vimgrep"
 
 opt.laststatus = 3 -- global statusline
 opt.linebreak = true -- Wrap lines at convenient points
+opt.wrap = true -- Enable line wrap
 
 -- Sets how neovim will display certain whitespace characters in the editor.
 --  See `:help 'list'`
@@ -141,8 +142,6 @@ opt.breakindent = true
 
 opt.smartindent = true -- Insert indents automatically
 opt.foldmethod = "indent"
-
-opt.wrap = false -- Disable line wrap
 
 opt.swapfile = false
 opt.backup = false
