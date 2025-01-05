@@ -1,8 +1,11 @@
+local formatting = require("ts.utils.formatting")
+
 return {
 	{ -- Autoformat
 		"stevearc/conform.nvim",
 		event = { "BufWritePre" },
 		-- cmd = { "ConformInfo" },
+
 		keys = {
 			{
 				"<leader>cf",
@@ -13,24 +16,28 @@ return {
 				desc = "[C]ode [F]ormat (Buffer)",
 			},
 		},
+
 		opts = {
 			notify_on_error = false,
-			format_on_save = function(bufnr)
-				-- Disable "format_on_save lsp_fallback" for languages that don't
-				-- have a well standardized coding style. You can add additional
-				-- languages here or re-enable it for the disabled ones.
-				local disable_filetypes = { c = true, cpp = true }
-				local lsp_format_opt
-				if disable_filetypes[vim.bo[bufnr].filetype] then
-					lsp_format_opt = "never"
-				else
-					lsp_format_opt = "fallback"
-				end
-				return {
-					timeout_ms = 500,
-					lsp_format = lsp_format_opt,
-				}
-			end,
+
+			-- -- format_on_save is managed by ts.utils.formatting
+			-- format_on_save = function(bufnr)
+			-- 	-- Disable "format_on_save lsp_fallback" for languages that don't
+			-- 	-- have a well standardized coding style. You can add additional
+			-- 	-- languages here or re-enable it for the disabled ones.
+			-- 	local disable_filetypes = { c = true, cpp = true }
+			-- 	local lsp_format_opt
+			-- 	if disable_filetypes[vim.bo[bufnr].filetype] then
+			-- 		lsp_format_opt = "never"
+			-- 	else
+			-- 		lsp_format_opt = "fallback"
+			-- 	end
+			-- 	return {
+			-- 		timeout_ms = 500,
+			-- 		lsp_format = lsp_format_opt,
+			-- 	}
+			-- end,
+
 			formatters_by_ft = {
 				lua = { "stylua" },
 				-- Conform can also run multiple formatters sequentially
@@ -40,5 +47,25 @@ return {
 				-- javascript = { "prettierd", "prettier", stop_after_first = true },
 			},
 		},
+
+		init = function()
+			formatting.setup()
+
+			formatting.register({
+				name = "conform.nvim",
+				priority = 100,
+				primary = true,
+				format = function(buf)
+					require("conform").format({ bufnr = buf })
+				end,
+				sources = function(buf)
+					local ret = require("conform").list_formatters(buf)
+					---@param v conform.FormatterInfo
+					return vim.tbl_map(function(v)
+						return v.name
+					end, ret)
+				end,
+			})
+		end,
 	},
 }

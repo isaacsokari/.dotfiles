@@ -1,4 +1,4 @@
--- local common_utils = require('ts.utils.common')
+local formatting = require("ts.utils.formatting")
 
 -- Terminal Mappings
 local function term_nav(dir)
@@ -222,6 +222,9 @@ return {
 		if vim.lsp.inlay_hint then
 			Snacks.toggle.inlay_hints():map("<leader>uh")
 		end
+
+		formatting.snacks_toggle():map("<leader>uf")
+		formatting.snacks_toggle(true):map("<leader>uF")
 
 		snacks.setup(opts)
 	end,
