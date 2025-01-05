@@ -1,5 +1,6 @@
 return {
 
+	-- lsp
 	{
 		"neovim/nvim-lspconfig",
 		opts = {
@@ -179,5 +180,29 @@ return {
 				end,
 			},
 		},
+	},
+
+	-- formatting
+	{
+
+		"stevearc/conform.nvim",
+		optional = true,
+
+		opts = function(_, opts)
+			local formatters = { "prettierd", "prettier", stop_after_first = true }
+			local supported_fts = {
+				"javascript",
+				"javascriptreact",
+				"typescript",
+				"typescriptreact",
+			}
+
+			opts.formatters_by_ft = opts.formatters_by_ft or {}
+
+			for _, ft in ipairs(supported_fts) do
+				---@diagnostic disable-next-line: no-unknown
+				opts.formatters_by_ft[ft] = formatters
+			end
+		end,
 	},
 }
