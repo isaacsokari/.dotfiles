@@ -1,4 +1,5 @@
 local formatting = require("ts.utils.formatting")
+local common_utils = require("ts.utils.common")
 
 -- Terminal Mappings
 local function term_nav(dir)
@@ -219,12 +220,28 @@ return {
 			:map("<leader>uA")
 		Snacks.toggle.treesitter():map("<leader>uT")
 		Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
+
 		if vim.lsp.inlay_hint then
 			Snacks.toggle.inlay_hints():map("<leader>uh")
 		end
 
 		formatting.snacks_toggle():map("<leader>uf")
 		formatting.snacks_toggle(true):map("<leader>uF")
+
+		local success, tsc = pcall(require, "treesitter-context")
+		if success then
+			Snacks.toggle({
+				name = "Treesitter Context",
+				get = tsc.enabled,
+				set = function(state)
+					if state then
+						tsc.enable()
+					else
+						tsc.disable()
+					end
+				end,
+			}):map("<leader>ut")
+		end
 
 		snacks.setup(opts)
 	end,
