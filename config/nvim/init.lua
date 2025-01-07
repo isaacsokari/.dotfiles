@@ -16,6 +16,9 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
+-- load global variables
+require("ts.globals")
+
 require("config.autocmds")
 require("config.options")
 require("config.keymaps")
@@ -59,9 +62,6 @@ require("lazy").setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
-
--- load global variables
-require("ts.globals")
 
 -- load snippets
 require("ts.snippets")
