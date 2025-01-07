@@ -86,7 +86,12 @@ alias e='nvim'
 alias v="nvim"
 if which lazygit > /dev/null; then alias lg="lazygit"; fi
 
-if [[ -d ~/Dev ]]; then
+if [[ -d "$HOME/.local/share/nvim/mason/bin" ]]; then
+  # add show installs globally
+  export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
+fi
+
+if [[ -d "$HOME/Dev" ]]; then
   if [[ -n $(echo -n $TMUX) ]]; then
     alias work='cd ~/Dev/work'
     alias learn='cd ~/Dev/learn'
