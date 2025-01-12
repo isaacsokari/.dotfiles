@@ -51,8 +51,6 @@ keymap.set("n", "<leader>fy", "<cmd>!echo % | pbcopy<CR>", { silent = true, desc
 
 -- Terminal keymap.setpings
 keymap.set("t", "<esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
--- keymap.set("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
--- keymap.del("t", "<esc><esc>")
 keymap.set("t", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to left window" })
 keymap.set("t", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to lower window" })
 keymap.set("t", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to upper window" })

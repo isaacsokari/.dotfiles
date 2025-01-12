@@ -1,5 +1,5 @@
 local formatting = require("ts.utils.formatting")
-local common_utils = require("ts.utils.common")
+local _common_utils = require("ts.utils.common")
 
 -- Terminal Mappings
 local function term_nav(dir)
@@ -90,16 +90,17 @@ return {
 		statuscolumn = { enabled = false }, -- we set this in options.lua
 
 		terminal = {
-			win = {
-				position = "float",
-
-				keys = {
-					nav_h = { "<C-h>", term_nav("h"), desc = "Go to Left Window", expr = true, mode = "t" },
-					nav_j = { "<C-j>", term_nav("j"), desc = "Go to Lower Window", expr = true, mode = "t" },
-					nav_k = { "<C-k>", term_nav("k"), desc = "Go to Upper Window", expr = true, mode = "t" },
-					nav_l = { "<C-l>", term_nav("l"), desc = "Go to Right Window", expr = true, mode = "t" },
-				},
-			},
+			enabled = false,
+			-- win = {
+			-- 	position = "float",
+			--
+			-- 	keys = {
+			-- 		nav_h = { "<C-h>", term_nav("h"), desc = "Go to Left Window", expr = true, mode = "t" },
+			-- 		nav_j = { "<C-j>", term_nav("j"), desc = "Go to Lower Window", expr = true, mode = "t" },
+			-- 		nav_k = { "<C-k>", term_nav("k"), desc = "Go to Upper Window", expr = true, mode = "t" },
+			-- 		nav_l = { "<C-l>", term_nav("l"), desc = "Go to Right Window", expr = true, mode = "t" },
+			-- 	},
+			-- },
 		},
 
 		toggle = { map = safe_keymap_set },
@@ -149,23 +150,6 @@ return {
 		keymap.set("n", "<leader>bo", function()
 			Snacks.bufdelete.other()
 		end, { desc = "Delete Other Buffers" })
-
-		-- floating terminal
-		keymap.set("n", "<leader>fT", function()
-			snacks.terminal()
-		end, { desc = "Terminal (cwd)" })
-
-		keymap.set("n", "<leader>ft", function()
-			snacks.terminal(nil, { cwd = snacks.git.get_root() })
-		end, { desc = "Terminal (Root Dir)" })
-
-		keymap.set("n", "<c-/>", function()
-			snacks.terminal(nil, { cwd = snacks.git.get_root() })
-		end, { desc = "Terminal (Root Dir)" })
-
-		keymap.set("n", "<c-_>", function()
-			snacks.terminal(nil, { cwd = snacks.git.get_root() })
-		end, { desc = "which_key_ignore" })
 
 		-- lazygit
 		if vim.fn.executable("lazygit") == 1 then
