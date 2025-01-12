@@ -53,9 +53,17 @@ local function toggle_terminal()
 		if vim.bo[state.floating.buf].buftype ~= "terminal" then
 			vim.cmd.term()
 		end
+
+		vim.cmd.startinsert()
 	else
 		vim.api.nvim_win_hide(state.floating.win)
 	end
 end
 
 vim.api.nvim_create_user_command("Floaterminal", toggle_terminal, {})
+
+-- toggle floaterminal
+local toggle_keys = { "<C-/>", "<C-_>" }
+for _, key in pairs(toggle_keys) do
+	vim.keymap.set({ "n", "i" }, key, "<cmd>Floaterminal<cr>", { desc = "Toggle Floaterminal" })
+end
