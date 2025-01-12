@@ -1,3 +1,5 @@
+# zmodload zsh/zprof
+
 if [[ -f "/opt/homebrew/bin/brew" ]] then
   # If you're using macOS, you'll want this enabled
   eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -25,12 +27,8 @@ zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
 
 # Add in snippets
-zinit snippet OMZP::git
-zinit snippet OMZP::sudo
-zinit snippet OMZP::aws
-zinit snippet OMZP::rails
-zinit snippet OMZP::qrcode
 zinit snippet OMZP::command-not-found
+zinit snippet OMZP::qrcode
 
 # set up asdf
 if [[ -d ~/.asdf ]]; then
@@ -131,10 +129,6 @@ if which go > /dev/null; then
   export PATH=$PATH:$(go env GOPATH)/bin
 fi
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 # openssl
 export PATH="/usr/local/opt/openssl@3/bin:$PATH"
 export LDFLAGS="-L/usr/local/opt/openssl@3/lib"
@@ -227,3 +221,5 @@ function take() {
 if which starship > /dev/null; then
   eval "$(starship init zsh)"
 fi
+
+# zprof
