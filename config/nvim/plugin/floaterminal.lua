@@ -11,36 +11,49 @@ local state = {
 ---@field win integer
 ---@return table
 
-local function create_floating_terminal_window(opts)
-	opts = opts or {}
-
-	local width = opts.width or math.floor(vim.o.columns * 0.8)
-	local height = opts.height or math.floor(vim.o.lines * 0.8)
+local function get_win_config()
+	local width = math.floor(vim.o.columns * 0.9)
+	local height = math.floor(vim.o.lines * 0.9)
 
 	-- get position to the center of the window
 	local col = math.floor((vim.o.columns - width) / 2)
 	local row = math.floor((vim.o.lines - height) / 2)
 
-	--- @type integer
-	local buf = nil
-
-	if vim.api.nvim_buf_is_valid(opts.buf) then
-		buf = opts.buf
-	else
-		buf = vim.api.nvim_create_buf(false, true) -- scratch buffer
-	end
-
-	local win_config = {
+	---@type vim.api.keyset.win_config
+	return {
 		relative = "editor",
 		width = width,
 		height = height,
 		col = col,
 		row = row,
 		style = "minimal",
-		border = "rounded",
+		-- border = "rounded",
 	}
+end
 
-	local win = vim.api.nvim_open_win(buf, true, win_config)
+local function create_floating_terminal_window(opts)
+	opts = opts or {}
+
+	--- @type integer
+	local buf = nil
+	if vim.api.nvim_buf_is_valid(opts.buf) then
+		buf = opts.buf
+	else
+		buf = vim.api.nvim_create_buf(false, true) -- scratch buffer
+	end
+
+	local win = vim.api.nvim_open_win(buf, true, get_win_config())
+
+	vim.api.nvim_create_autocmd("VimResized", {
+		group = vim.api.nvim_create_augroup("floaterminal-resized", {}),
+		callback = function()
+			if not vim.api.nvim_win_is_valid(state.floating.win) then
+				return
+			end
+
+			vim.api.nvim_win_set_config(state.floating.win, get_win_config())
+		end,
+	})
 
 	return { buf = buf, win = win }
 end
