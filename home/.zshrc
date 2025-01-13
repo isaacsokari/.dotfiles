@@ -46,10 +46,6 @@ autoload -Uz compinit && compinit
 
 zinit cdreplay -q
 
-# if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
-  # eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/config.toml)"
-# fi
-
 # Keybindings
 bindkey -e
 bindkey '^p' history-search-backward
@@ -76,27 +72,10 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
-# Aliases
-alias ls='ls --color'
-alias c='clear'
-alias e='nvim'
-
-alias v="nvim"
-if which lazygit > /dev/null; then alias lg="lazygit"; fi
 
 if [[ -d "$HOME/.local/share/nvim/mason/bin" ]]; then
   # add show installs globally
   export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
-fi
-
-if [[ -d "$HOME/Dev" ]]; then
-  if [[ -n $(echo -n $TMUX) ]]; then
-    alias work='cd ~/Dev/work'
-    alias learn='cd ~/Dev/learn'
-  else
-    alias work="cd ~/Dev/work && tmux new -s ts"
-    alias learn="cd ~/Dev/learn && tmux new -s ts"
-  fi
 fi
 
 # Shell integrations
@@ -139,21 +118,12 @@ export PATH="/usr/local/opt/libpq/bin:$PATH"
 export LDFLAGS="-L/usr/local/opt/libpq/lib"
 export CPPFLAGS="-I/usr/local/opt/libpq/include"
 
-if [[ $(arch) = 'i386' ]]; then
-  alias intel='arch -x86_64 zsh'
-  alias ibrew='arch -x86_64 /usr/local/bin/brew'
-  alias ie="/usr/local/bin/nvim"
-  alias iv="/usr/local/bin/nvim"
-  alias ivim="ivi"
-  alias invim="ivi"
-fi
 
 PATH="/Users/isaac/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="/Users/isaac/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
 PERL_LOCAL_LIB_ROOT="/Users/isaac/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/Users/isaac/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/Users/isaac/perl5"; export PERL_MM_OPT;
-
 
 # enable zsh options
 setopt auto_cd
@@ -177,14 +147,7 @@ alias 7='cd -7'
 alias 8='cd -8'
 alias 9='cd -9'
 
-alias md='mkdir -p'
-alias rd=rmdir
-
-# List directory contents
-alias lsa='ls -lah'
-alias l='ls -lah'
-alias ll='ls -lh'
-alias la='ls -lAh'
+source "$HOME/.aliases"
 
 # take functions
 
