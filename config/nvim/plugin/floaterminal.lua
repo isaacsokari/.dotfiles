@@ -31,29 +31,72 @@ local function get_win_config()
 	}
 end
 
+local function disable_keybindings(bufnr)
+	local group = vim.api.nvim_create_augroup("FloaterminalDisableKeybindings", { clear = true })
+
+	vim.api.nvim_create_autocmd("BufEnter", {
+		group = group,
+		callback = function()
+			local modes_to_disable = { "n", "i", "v", "t" }
+
+			local keys_to_disable = {
+				"<C-h>",
+				"<C-j>",
+				"<C-k>",
+				"<C-l>",
+			}
+
+			for _, mode in ipairs(modes_to_disable) do
+				for _, key in ipairs(keys_to_disable) do
+					vim.api.nvim_buf_set_keymap(bufnr, mode, key, "<Nop>", { noremap = true, silent = true })
+				end
+			end
+		end,
+		once = true,
+	})
+end
+
+local function unlist_buffer(bufnr)
+	local group = vim.api.nvim_create_augroup("FloaterminalUnlistBuffer", { clear = true })
+
+	vim.api.nvim_create_autocmd("BufEnter", {
+		group = group,
+		callback = function()
+			vim.bo[bufnr].buflisted = false
+		end,
+	})
+end
+
+local function handle_resize(win)
+	vim.api.nvim_create_autocmd("VimResized", {
+		group = vim.api.nvim_create_augroup("FloaterminalResized", { clear = true }),
+		callback = function()
+			if not vim.api.nvim_win_is_valid(win) then
+				return
+			end
+
+			vim.api.nvim_win_set_config(win, get_win_config())
+		end,
+	})
+end
+
 local function create_floating_terminal_window(opts)
 	opts = opts or {}
 
 	--- @type integer
 	local buf = nil
+
 	if vim.api.nvim_buf_is_valid(opts.buf) then
 		buf = opts.buf
 	else
 		buf = vim.api.nvim_create_buf(false, true) -- scratch buffer
 	end
 
+	disable_keybindings(buf)
+	unlist_buffer(buf)
+
 	local win = vim.api.nvim_open_win(buf, true, get_win_config())
-
-	vim.api.nvim_create_autocmd("VimResized", {
-		group = vim.api.nvim_create_augroup("floaterminal-resized", {}),
-		callback = function()
-			if not vim.api.nvim_win_is_valid(state.floating.win) then
-				return
-			end
-
-			vim.api.nvim_win_set_config(state.floating.win, get_win_config())
-		end,
-	})
+	handle_resize(win)
 
 	return { buf = buf, win = win }
 end
