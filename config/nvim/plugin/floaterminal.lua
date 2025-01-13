@@ -56,8 +56,8 @@ local function disable_keybindings(bufnr)
 	})
 end
 
-local function unlist_buffer(bufnr)
-	local group = vim.api.nvim_create_augroup("FloaterminalUnlistBuffer", { clear = true })
+local function configure_buffer(bufnr)
+	local group = vim.api.nvim_create_augroup("FloaterminalConfigureBuffer", { clear = true })
 
 	vim.api.nvim_create_autocmd("BufEnter", {
 		group = group,
@@ -68,14 +68,32 @@ local function unlist_buffer(bufnr)
 end
 
 local function handle_resize(win)
+	local group = vim.api.nvim_create_augroup("FloaterminalResize", { clear = true })
+
 	vim.api.nvim_create_autocmd("VimResized", {
-		group = vim.api.nvim_create_augroup("FloaterminalResized", { clear = true }),
+		group = group,
 		callback = function()
 			if not vim.api.nvim_win_is_valid(win) then
 				return
 			end
 
 			vim.api.nvim_win_set_config(win, get_win_config())
+		end,
+	})
+end
+
+local function configure_window(win)
+	local group = vim.api.nvim_create_augroup("FloaterminalConfigureWindow", { clear = true })
+
+	vim.api.nvim_create_autocmd("TermEnter", {
+		group = group,
+		callback = function()
+			if not vim.api.nvim_win_is_valid(win) then
+				return
+			end
+
+			vim.wo[win].wrap = true
+			vim.wo[win].linebreak = true
 		end,
 	})
 end
@@ -93,7 +111,7 @@ local function create_floating_terminal_window(opts)
 	end
 
 	disable_keybindings(buf)
-	unlist_buffer(buf)
+	configure_buffer(buf)
 
 	local win = vim.api.nvim_open_win(buf, true, get_win_config())
 	handle_resize(win)
@@ -104,6 +122,7 @@ end
 local function toggle_terminal()
 	if not vim.api.nvim_win_is_valid(state.floating.win) then
 		state.floating = create_floating_terminal_window({ buf = state.floating.buf })
+		configure_window(state.floating.win)
 
 		-- set buftype to terminal if it isn't one
 		if vim.bo[state.floating.buf].buftype ~= "terminal" then
