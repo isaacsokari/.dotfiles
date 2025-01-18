@@ -1,5 +1,4 @@
 return {
-
 	{
 		"kevinhwang91/nvim-ufo",
 		dependencies = {
@@ -27,19 +26,23 @@ return {
 			-- Use nvim lsp as LSP client
 			-- Tell the server the capability of foldingRange,
 			-- Neovim hasn't added foldingRange to default capabilities, users must add it manually
+			local capabilities = vim.lsp.protocol.make_client_capabilities()
+			capabilities.textDocument.foldingRange = {
+				dynamicRegistration = false,
+				lineFoldingOnly = true,
+			}
 
-			-- local capabilities = vim.lsp.protocol.make_client_capabilities()
-			-- capabilities.textDocument.foldingRange = {
-			--   dynamicRegistration = false,
-			--   lineFoldingOnly = true,
-			-- }
-			-- local language_servers = require("lspconfig").util.available_servers() -- or list servers manually like {'gopls', 'clangd'}
-			-- for _, ls in ipairs(language_servers) do
-			--   require("lspconfig")[ls].setup({
-			--     capabilities = capabilities,
-			--     -- you can add other fields for setting up lsp server in this table
-			--   })
-			-- end
+			---@diagnostic disable-next-line: no-unknown
+			local ok, language_servers = pcall(require("lspconfig").util.available_servers) -- or list servers manually like {'gopls', 'clangd'}
+			if ok then
+				---@diagnostic disable-next-line: no-unknown
+				for _, ls in ipairs(language_servers) do
+					require("lspconfig")[ls].setup({
+						capabilities = capabilities,
+						-- you can add other fields for setting up lsp server in this table
+					})
+				end
+			end
 
 			ufo.setup()
 		end,
