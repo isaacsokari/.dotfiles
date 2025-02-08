@@ -85,23 +85,11 @@ return {
 			},
 		},
 
+		dim = { enabled = true },
 		notifier = { enabled = true },
 		quickfile = { enabled = true },
-		statuscolumn = { enabled = false }, -- we set this in options.lua
-
-		terminal = {
-			enabled = false,
-			-- win = {
-			-- 	position = "float",
-			--
-			-- 	keys = {
-			-- 		nav_h = { "<C-h>", term_nav("h"), desc = "Go to Left Window", expr = true, mode = "t" },
-			-- 		nav_j = { "<C-j>", term_nav("j"), desc = "Go to Lower Window", expr = true, mode = "t" },
-			-- 		nav_k = { "<C-k>", term_nav("k"), desc = "Go to Upper Window", expr = true, mode = "t" },
-			-- 		nav_l = { "<C-l>", term_nav("l"), desc = "Go to Right Window", expr = true, mode = "t" },
-			-- 	},
-			-- },
-		},
+		statuscolumn = { enabled = false }, -- i set this in options.lua
+		terminal = { enabled = false }, -- i use floaterminal
 
 		toggle = { map = safe_keymap_set },
 		words = { enabled = true },
@@ -204,6 +192,8 @@ return {
 			:map("<leader>uA")
 		Snacks.toggle.treesitter():map("<leader>uT")
 		Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
+
+		Snacks.toggle.dim():map("<leader>uD")
 
 		if vim.lsp.inlay_hint then
 			Snacks.toggle.inlay_hints():map("<leader>uh")
