@@ -46,9 +46,8 @@ return {
 	},
 	-- set icon mappings to true if you have a Nerd Font
 	mappings = vim.g.have_nerd_font,
-	-- If you are using a Nerd Font: set icons.keys to an empty table which will use the
-	-- default which-key.nvim defined Nerd Font icons, otherwise define a string table
-	keys = vim.g.have_nerd_font and {} or {
+
+	keys = {
 		{
 			"<leader>?",
 			function()
@@ -68,7 +67,11 @@ return {
 		local wk = require("which-key")
 		wk.setup(opts)
 		if not vim.tbl_isempty(opts.defaults) then
-			vim.notify("opts.defaults is deprecated. Please use opts.spec instead.", "warn", { title = "which-key" })
+			vim.notify(
+				"opts.defaults is deprecated. Please use opts.spec instead.",
+				vim.log.levels.WARN,
+				{ title = "which-key" }
+			)
 			---@diagnostic disable-next-line: deprecated
 			wk.register(opts.defaults)
 		end
