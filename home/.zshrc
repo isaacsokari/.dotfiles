@@ -32,7 +32,6 @@ zinit snippet OMZP::qrcode
 
 # set up asdf
 if [[ -d ~/.asdf ]]; then
-  . "$HOME/.asdf/asdf.sh"
   # append completions to fpath
   fpath=(~/.asdf/completions $fpath)
 
