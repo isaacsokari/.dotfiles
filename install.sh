@@ -52,8 +52,7 @@ echo "======================================================================="
 echo "Installing Dotfiles"
 echo "======================================================================="
 
-# link_dotfiles ".zshrc"
-link_dotfiles ".p10k.zsh"
+link_dotfiles ".zshrc"
 link_dotfiles ".hushlogin"
 link_dotfiles ".gitconfig"
 link_dotfiles ".gitignore"
@@ -69,7 +68,6 @@ echo "======================================================================="
 
 link_config "nvim"
 link_config "tmux"
-link_config "ohmyposh"
 link_config "starship.toml"
 link_config "ghostty"
 
