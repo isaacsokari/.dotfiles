@@ -16,5 +16,5 @@ window-decoration = false
 window-inherit-working-directory = true
 window-theme = dark
 window-save-state = always
-window-width = 1920
-window-height = 1080
+window-width = 960
+window-height = 540
