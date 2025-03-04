@@ -1,12 +1,12 @@
 # use 24bit colors if available
-set-option -sa terminal-overrides ",xterm*:Tc"
+set -sa terminal-overrides ",xterm*:Tc"
 set -g mouse on
 
 # start windows and panes at 1, not 0
 set -g base-index 1
 set -g pane-base-index 1
 set-window-option -g pane-base-index 1
-set-option -g renumber-windows on
+set -g renumber-windows on
 
 # set new panes to open cwd
 bind '"' split-window -v -c "#{pane_current_path}"
