@@ -9,13 +9,13 @@ if which lazygit > /dev/null; then
   alias lg="lazygit";
 fi
 
-if [[ -d "$HOME/Dev" ]]; then
+if [[ -d "$HOME/projects" ]]; then
   if [[ -n $(echo -n $TMUX) ]]; then
-    alias work='cd ~/Dev/work'
-    alias learn='cd ~/Dev/learn'
+    alias work='cd ~/projects/work'
+    alias learn='cd ~/projects/learn'
   else
-    alias work="cd ~/Dev/work && tmux new -s ts"
-    alias learn="cd ~/Dev/learn && tmux new -s ts"
+    alias work="cd ~/projects/work && tmux new -s ts"
+    alias learn="cd ~/projects/learn && tmux new -s ts"
   fi
 fi
 
