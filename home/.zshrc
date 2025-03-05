@@ -31,12 +31,15 @@ zinit snippet OMZP::command-not-found
 zinit snippet OMZP::qrcode
 
 # set up asdf
-if [[ -d ~/.asdf ]]; then
+export ASDF_DATA_DIR=${ASDF_DATA_DIR:-$HOME/.asdf}
+if [[ -d $ASDF_DATA_DIR ]]; then
+  export PATH="$ASDF_DATA_DIR/shims:$PATH"
+
   # append completions to fpath
-  fpath=(~/.asdf/completions $fpath)
+  fpath=($ASDF_DATA_DIR/completions $fpath)
 
   if asdf list java > /dev/null 2>&1; then
-    . ~/.asdf/plugins/java/set-java-home.zsh
+    . $ASDF_DATA_DIR/plugins/java/set-java-home.zsh
   fi
 fi
 
