@@ -3,6 +3,7 @@ return {
 	event = "VimEnter",
 	opts_extend = { "spec" },
 	opts = {
+		preset = "classic",
 		defaults = {},
 
 		-- Document existing key chains
