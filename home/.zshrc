@@ -151,6 +151,10 @@ alias 9='cd -9'
 
 source "$HOME/.aliases"
 
+if [[ -f "$HOME/.zshrc.local" ]]; then
+  source "$HOME/.zshrc.local"
+fi
+
 # take functions
 
 # mkcd is equivalent to takedir
