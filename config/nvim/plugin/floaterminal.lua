@@ -48,7 +48,7 @@ local function disable_keybindings(bufnr)
 
 			for _, mode in ipairs(modes_to_disable) do
 				for _, key in ipairs(keys_to_disable) do
-					vim.api.nvim_buf_set_keymap(bufnr, mode, key, "<Nop>", { noremap = true, silent = true })
+					vim.api.nvim_buf_set_keymap(bufnr, mode, key, key, { noremap = true, silent = true })
 				end
 			end
 		end,
