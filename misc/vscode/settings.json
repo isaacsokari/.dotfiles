@@ -1,0 +1,206 @@
+{
+    "advancedNewFile.convenienceOptions": [
+        "last",
+        "current",
+        "root"
+    ],
+    "breadcrumbs.enabled": false,
+    "diffEditor.ignoreTrimWhitespace": false,
+
+    "editor.hover.delay": 700,
+    "editor.cursorBlinking": "phase",
+    "editor.linkedEditing": true,
+    "editor.wordWrap": "on",
+    "editor.accessibilitySupport": "off",
+    "editor.stickyScroll.enabled": true,
+    "editor.rulers": [ 120 ],
+
+    "emmet.includeLanguages": {
+        "ejs": "html"
+    },
+
+    "files.associations": {
+        "*.ejs": "html",
+        ".html.erb": "html",
+        ".css.erb": "css",
+        ".js.erb": "js",
+        "*.svg": "html",
+        ".env*": "shellscript"
+    },
+
+    "git.autofetch": true,
+    "git.confirmSync": false,
+    "git.ignoreMissingGitWarning": true,
+    "git.openRepositoryInParentFolders": "always",
+
+    "gitlens.currentLine.format": "${message|50? • }${author, }${agoOrDate}${' via 'pullRequest}",
+    "gitlens.views.commits.files.layout": "tree",
+    "gitlens.views.stashes.files.layout": "tree",
+    "gitlens.views.commitDetails.files.layout": "tree",
+
+    "go.inlayHints.constantValues": true,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[ruby]": {
+        "editor.insertSpaces": true,
+    },
+
+    "debug.console.fontSize": 14,
+
+    "editor.bracketPairColorization.enabled": true,
+    "editor.defaultFormatter": null,
+    "editor.fontSize": 14,
+    "editor.formatOnPaste": false,
+    "editor.formatOnSave": false,
+    "editor.formatOnType": false,
+    "editor.lineNumbers": "relative",
+    "editor.minimap.enabled": false,
+    "editor.semanticHighlighting.enabled": true,
+    "editor.tabSize": 2,
+    "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?-",
+
+    "files.autoSaveDelay": 900,
+
+    "json.schemas": [
+        {
+            "name": "vscode-expo-manifest",
+            "url": "file:///home/ts/.vscode-server/data/User/globalStorage/bycedric.vscode-expo/manifest-44.0.0.json",
+            "fileMatch": [
+                "app.json",
+                "app.config.json"
+            ]
+        }
+    ],
+
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.expand": false,
+    "explorer.fileNesting.patterns": {
+        "*.ts": "$(capture).js, $(capture).d.ts, $(capture).test.js, $(capture).spec.js",
+        "*.js": "$(capture).js.map, $(capture).min.js, $(capture).d.ts, $(capture).test.js, $(capture).spec.js",
+        "*.jsx": "$(capture).js, $(capture).test.js, $(capture).spec.js",
+        "*.tsx": "$(capture).ts, $(capture).test.js, $(capture).spec.js",
+        "tsconfig.json": "tsconfig.*.json",
+        "package.json": "package-lock.json, .npmrc, yarn.lock, .yarnrc"
+    },
+
+    "extensions.autoUpdate": "onlyEnabledExtensions",
+
+    "files.insertFinalNewline": true,
+    "files.refactoring.autoSave": true,
+    "files.trimTrailingWhitespace": true,
+
+    "github.gitProtocol": "ssh",
+
+    "search.showLineNumbers": true,
+    "search.useGlobalIgnoreFiles": true,
+    "security.workspace.trust.untrustedFiles": "open",
+
+    "sqltools.autoOpenSessionFiles": false,
+    "sqltools.connectionExplorer.groupConnected": true,
+    "sqltools.disableReleaseNotifications": true,
+    "sqltools.flattenGroupsIfOne": true,
+    "sqltools.highlightQuery": false,
+    "sqltools.showStatusbar": false,
+
+    "telemetry.telemetryLevel": "off",
+
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "terminal.integrated.fontSize": 14,
+
+    "typescript.suggest.completeJSDocs": true,
+    "typescript.suggest.paths": true,
+    "typescript.updateImportsOnFileMove.enabled": "always",
+
+    "vim.leader": "<Space>",
+    "vim.camelCaseMotion.enable": true,
+    "vim.easymotion": true,
+    "vim.easymotionMarkerBackgroundColor": "#020202",
+    "vim.foldfix": true,
+    "vim.highlightedyank.enable": true,
+    "vim.hlsearch": true,
+    "vim.incsearch": true,
+    "vim.smartRelativeLine": true,
+    "vim.sneak": true,
+    "vim.useCtrlKeys": true,
+    "vim.useSystemClipboard": true,
+    "vim.normalModeKeyBindings": [
+        { "before": [ "<leader>", "r" ], "after": [ "<C-r>" ] },
+        { "before": ["leader", "w", "o"], "after": ["<C-w>", "o"] },
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        // NAVIGATION
+        // editors/buffers
+        { "before": ["<S-h>"], "commands": [":bprevious"] },
+        { "before": ["<S-l>"], "commands": [":bnext"] },
+        { "before": ["leader", "b", "d"], "commands": ["workbench.action.closeActiveEditor"] },
+        { "before": ["leader", "b", "o"], "commands": ["workbench.action.closeOtherEditors"] },
+
+        // splits
+        { "before": ["leader", "w", "v"], "commands": [":vsplit"] },
+        { "before": ["leader", "w", "s"], "commands": [":split"] },
+        { "before": ["leader", "w", "d"], "commands": ["workbench.action.closeActiveEditor"] },
+
+        // panes
+        { "before": ["<C-h>"], "commands": ["workbench.action.focusLeftGroup"] },
+        { "before": ["<C-j>"], "commands": ["workbench.action.focusBelowGroup"] },
+        { "before": ["<C-k>"], "commands": ["workbench.action.focusAboveGroup"] },
+        { "before": ["<C-l>"], "commands": ["workbench.action.focusRightGroup"] },
+
+        // NICE TO HAVE
+        { "before": ["leader", "w", "w"], "commands": [":w!"] },
+        { "before": ["leader", "q", "q"], "commands": [":q!"] },
+        { "before": ["leader", "x"], "commands": [":x!"] },
+        { "before": ["[", "d"], "commands": ["editor.action.marker.prev"] },
+        { "before": ["]", "d"], "commands": ["editor.action.marker.next"] },
+        { "before": ["<leader>", "c", "a"], "commands": ["editor.action.quickFix"] },
+        { "before": ["leader", "f"], "commands": ["workbench.action.quickOpen"] },
+        { "before": ["leader", "p"], "commands": ["editor.action.formatDocument"] },
+        { "before": ["g", "h"], "commands": ["editor.action.showDefinitionPreviewHover"] },
+
+
+        { "before": [ "<leader>", "d" ], "after": [ "d", "d" ] },
+        { "before": [ "K" ], "commands": [ "editor.action.showHover" ] },
+
+        { "before": [ "<leader>", "e" ], "commands": [ "workbench.action.toggleSidebarVisibility" ] },
+
+        { "before": [ "]", "d" ], "commands": [ "editor.action.marker.next" ] },
+        { "before": [ "[", "d" ], "commands": [ "editor.action.marker.prev" ] },
+
+    ],
+    "vim.visualModeKeyBindings": [
+        // Stay in visual mode while indenting
+        { "before": ["<"], "commands": ["editor.action.outdentLines"] },
+        { "before": [">"], "commands": ["editor.action.indentLines"] },
+
+        // Move selected lines while staying in visual mode
+        { "before": ["J"], "commands": ["editor.action.moveLinesDownAction"] },
+        { "before": ["K"], "commands": ["editor.action.moveLinesUpAction"] },
+
+        // toggle comment selection
+        { "before": ["g", "c"], "commands": ["editor.action.commentLine"] }
+    ],
+    "vim.handleKeys": {
+        "<C-a>": false,
+        "<C-c>": false,
+        "<C-x>": false,
+        "<C-v>": false,
+        "<C-z>": false,
+        "<C-y>": false
+    },
+
+    "window.commandCenter": true,
+
+    "workbench.colorTheme": "Catppuccin Macchiato",
+    "workbench.editor.labelFormat": "short",
+    "workbench.editor.pinnedTabSizing": "shrink",
+    "workbench.panel.defaultLocation": "right",
+    "workbench.reduceMotion": "on",
+    "workbench.sideBar.location": "right",
+    // "workbench.iconTheme": "vscode-icons",
+
+    "zenMode.hideLineNumbers": false
+}
