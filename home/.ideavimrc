@@ -281,6 +281,10 @@ let g:WhichKeyDesc_zen_mode = "<leader>dz Toggle Zen mode"
 noremap <leader>df :action ToggleFullScreen<CR>
 let g:WhichKeyDesc_fullscreen = "<leader>df Toggle full screen"
 
+" UI options
+noremap <leader>uw :action EditorToggleUseSoftWraps<CR>
+let g:WhichKeyDesc_toggle_wrap = "<leader>uw Toggle Soft Wrap"
+
 " Run
 noremap <leader><CR> :action Run<CR>
 let g:WhichKeyDesc_run = "<leader><CR> Run"
