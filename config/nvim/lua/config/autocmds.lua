@@ -217,10 +217,18 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 })
 
 -- set all yaml file types
-vim.api.nvim_create_autocmd({ "BufRead", "BufNew", "BufNewFile" }, {
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 	pattern = { "*.yaml", "*.yml" },
 	callback = function()
 		vim.bo.filetype = "yaml"
 	end,
 	group = augroup("filetype_yaml"),
+})
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	pattern = { "eruby.yaml" },
+	callback = function()
+		vim.bo.filetype = "yaml"
+	end,
+	group = augroup("filetype_yaml_eruby"),
 })
