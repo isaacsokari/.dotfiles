@@ -5,14 +5,16 @@ font-size = 13.0
 font-family = Cascadia Code Regular SemiLight
 
 # hidden, transparent, tabs, native
-macos-titlebar-style = hidden
+# previous value, hidden, didn't allow having tabs
+macos-titlebar-style = tabs
 
 background-opacity = 0.95
 background-blur-radius = 20
 
 window-padding-y = 0,0
 
-window-decoration = false
+# need to enable window-decoration
+# window-decoration = false
 window-inherit-working-directory = true
 window-theme = dark
 window-save-state = always
