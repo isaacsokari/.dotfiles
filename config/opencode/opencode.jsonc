@@ -1,0 +1,16 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "theme": "catppuccin",
+  "mcp": {
+    "MCP_DOCKER": {
+      "type": "local",
+      "command": [
+        "docker",
+        "mcp",
+        "gateway",
+        "run"
+      ],
+      "enabled": true
+    }
+  }
+}
