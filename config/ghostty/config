@@ -6,7 +6,7 @@ font-family = Cascadia Code Regular SemiLight
 
 # hidden, transparent, tabs, native
 # previous value, hidden, didn't allow having tabs
-macos-titlebar-style = tabs
+macos-titlebar-style = hidden
 
 background-opacity = 0.95
 background-blur-radius = 20
