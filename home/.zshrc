@@ -47,6 +47,10 @@ if which mise > /dev/null; then
   eval "$(mise activate zsh)"
 fi
 
+if which docker > /dev/null; then
+  fpath=($HOME/.docker/completions $fpath)
+fi
+
 # Load completions
 autoload -Uz compinit && compinit
 
