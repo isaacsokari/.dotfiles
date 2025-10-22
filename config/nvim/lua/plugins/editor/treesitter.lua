@@ -1,11 +1,17 @@
 local common_utils = require("ts.utils.common")
+local notify = require("ts.utils.notify")
+local treesitter_utils = require("ts.utils.treesitter")
 
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
-		-- without this, highlights are partial
-		main = "nvim-treesitter.configs", -- Sets main module to use for opts
+		branch = "main",
+		version = false, -- last release is way too old and doesn't work on Windows
 
+		opts_extend = { "ensure_installed" },
+
+		---@alias TSFeat { enable?: boolean, disable?: string[] }
+		---@class TSConfig
 		opts = {
 			ensure_installed = {
 				"bash",
@@ -34,9 +40,7 @@ return {
 				"yaml",
 			},
 
-			-- Autoinstall languages that are not installed
-			auto_install = true,
-
+			---@type TSFeat
 			highlight = {
 				enable = true,
 				-- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
@@ -55,6 +59,7 @@ return {
 				},
 			},
 
+			---@type TSFeat
 			indent = {
 				enable = true,
 				disable = { "ruby" },
@@ -86,6 +91,84 @@ return {
 				},
 			},
 		},
+
+		---@param opts TSConfig
+		config = function(_, opts)
+			local TS = require("nvim-treesitter")
+
+			setmetatable(require("nvim-treesitter.install"), {
+				__newindex = function(_, k)
+					if k == "compilers" then
+						vim.schedule(function()
+							notify.error({
+								"Setting custom compilers for `nvim-treesitter` is no longer supported.",
+								"",
+								"For more info, see:",
+								"- [compilers](https://docs.rs/cc/latest/cc/#compile-time-requirements)",
+							})
+						end)
+					end
+				end,
+			})
+
+			-- some quick sanity checks
+			if not TS.get_installed then
+				return notify.error("Please use `:Lazy` and update `nvim-treesitter`")
+			elseif type(opts.ensure_installed) ~= "table" then
+				return notify.error("`nvim-treesitter` opts.ensure_installed must be a table")
+			end
+
+			-- setup treesitter
+			TS.setup(opts)
+			treesitter_utils.get_installed(true) -- initialize the installed langs
+
+			-- install missing parsers
+			local install = vim.tbl_filter(function(lang)
+				return not treesitter_utils.have(lang)
+			end, opts.ensure_installed or {})
+			if #install > 0 then
+				treesitter_utils.build(function()
+					TS.install(install, { summary = true }):await(function()
+						treesitter_utils.get_installed(true) -- refresh the installed langs
+					end)
+				end)
+			end
+
+			vim.api.nvim_create_autocmd("FileType", {
+				group = vim.api.nvim_create_augroup("ts_treesitter", { clear = true }),
+				callback = function(ev)
+					local ft, lang = ev.match, vim.treesitter.language.get_lang(ev.match)
+					if not treesitter_utils.have(ft) then
+						return
+					end
+
+					---@param feat string
+					---@param query string
+					local function enabled(feat, query)
+						local f = opts[feat] or {} ---@type TSFeat
+						return f.enable ~= false
+							and not (type(f.disable) == "table" and vim.tbl_contains(f.disable, lang))
+							and treesitter_utils.have(ft, query)
+					end
+
+					-- highlighting
+					if enabled("highlight", "highlights") then
+						pcall(vim.treesitter.start, ev.buf)
+					end
+
+					-- indents
+					if enabled("indent", "indents") then
+						vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+					end
+
+					-- folds
+					if enabled("folds", "folds") then
+						vim.wo.foldmethod = "expr"
+						vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+					end
+				end,
+			})
+		end,
 	},
 
 	-- treesitter playground
@@ -114,35 +197,77 @@ return {
 	-- treesitter textobjects
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
+		branch = "main",
 		event = "VeryLazy",
 		enabled = true,
-		config = function()
-			-- If treesitter is already loaded, we need to run config again for textobjects
-			if common_utils.is_loaded("nvim-treesitter") then
-				local opts = common_utils.get_plugin_opts("nvim-treesitter")
-				require("nvim-treesitter.configs").setup({ textobjects = opts.textobjects })
-			end
 
-			-- When in diff mode, we want to use the default
-			-- vim text objects c & C instead of the treesitter ones.
-			local move = require("nvim-treesitter.textobjects.move") ---@type table<string,fun(...)>
-			local configs = require("nvim-treesitter.configs")
-			for name, fn in pairs(move) do
-				if name:find("goto") == 1 then
-					move[name] = function(q, ...)
-						if vim.wo.diff then
-							local config = configs.get_module("textobjects.move")[name] ---@type table<string,string>
-							for key, query in pairs(config or {}) do
-								if q == query and key:find("[%]%[][cC]") then
-									vim.cmd("normal! " .. key)
-									return
-								end
-							end
+		opts = {
+			move = {
+				enable = true,
+				set_jumps = true, -- whether to set jumps in the jumplist
+				keys = {
+					goto_next_start = {
+						["]f"] = "@function.outer",
+						["]c"] = "@class.outer",
+						["]a"] = "@parameter.inner",
+					},
+					goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
+					goto_previous_start = {
+						["[f"] = "@function.outer",
+						["[c"] = "@class.outer",
+						["[a"] = "@parameter.inner",
+					},
+					goto_previous_end = {
+						["[F"] = "@function.outer",
+						["[C"] = "@class.outer",
+						["[A"] = "@parameter.inner",
+					},
+				},
+			},
+		},
+
+		config = function(_, opts)
+			local TS = require("nvim-treesitter-textobjects")
+			if not TS.setup then
+				vim.notify("Please use `:Lazy` and update `nvim-treesitter`", vim.log.levels.ERROR)
+				return
+			end
+			TS.setup(opts)
+
+			local function attach(buf)
+				local ft = vim.bo[buf].filetype
+				if not (vim.tbl_get(opts, "move", "enable") and treesitter_utils.have(ft, "textobjects")) then
+					return
+				end
+				---@type table<string, table<string, string>>
+				local moves = vim.tbl_get(opts, "move", "keys") or {}
+
+				for method, keymaps in pairs(moves) do
+					for key, query in pairs(keymaps) do
+						local desc = query:gsub("@", ""):gsub("%..*", "")
+						desc = desc:sub(1, 1):upper() .. desc:sub(2)
+						desc = (key:sub(1, 1) == "[" and "Prev " or "Next ") .. desc
+						desc = desc .. (key:sub(2, 2) == key:sub(2, 2):upper() and " End" or " Start")
+						if not (vim.wo.diff and key:find("[cC]")) then
+							vim.keymap.set({ "n", "x", "o" }, key, function()
+								require("nvim-treesitter-textobjects.move")[method](query, "textobjects")
+							end, {
+								buffer = buf,
+								desc = desc,
+								silent = true,
+							})
 						end
-						return fn(q, ...)
 					end
 				end
 			end
+
+			vim.api.nvim_create_autocmd("FileType", {
+				group = vim.api.nvim_create_augroup("ts_treesitter_textobjects", { clear = true }),
+				callback = function(ev)
+					attach(ev.buf)
+				end,
+			})
+			vim.tbl_map(attach, vim.api.nvim_list_bufs())
 		end,
 	},
 
