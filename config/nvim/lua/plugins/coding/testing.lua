@@ -4,7 +4,11 @@ return {
 	desc = "Neotest support. Requires language specific adapters to be configured.",
 	{
 		"nvim-neotest/neotest",
-		dependencies = { "nvim-neotest/nvim-nio" },
+		dependencies = {
+			"nvim-neotest/nvim-nio",
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+		},
 
 		opts = {
 			-- Can be a list of adapters like what neotest expects,

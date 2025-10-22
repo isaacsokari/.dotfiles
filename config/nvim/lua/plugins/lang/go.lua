@@ -18,7 +18,14 @@ return {
 		"nvim-neotest/neotest",
 		optional = true,
 		dependencies = {
-			"fredrikaverpil/neotest-golang",
+			{
+				"fredrikaverpil/neotest-golang",
+				version = "*", -- Optional, but recommended; track releases
+				build = function()
+					vim.system({ "go", "install", "gotest.tools/gotestsum@latest" }):wait()
+				end,
+				lazy = true,
+			},
 		},
 		opts = {
 			adapters = {
