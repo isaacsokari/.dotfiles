@@ -60,6 +60,7 @@ link_dotfiles ".vimrc"
 link_dotfiles ".ignore"
 link_dotfiles ".asdfrc"
 link_dotfiles ".ideavimrc"
+link_dotfiles ".aliases"
 
 echo ""
 echo "======================================================================="
