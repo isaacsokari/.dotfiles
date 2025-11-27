@@ -26,7 +26,7 @@ keymap.set("v", ">", ">gv")
 -- keymap.set("n", "<leader>bo", "<Cmd>%bd|e#|bd#<CR>", { desc = "Delete All Other Buffers" })
 
 -- keep cursor position afer joining line
-keymap.set("n", "J", "mzJ`z")
+keymap.set("n", "J", "mzJ`z<cmd>delmarks z<cr>")
 
 -- ensure scrolling down/up keeps cursor centered where possible
 keymap.set("n", "<C-d>", "<C-d>zz")
