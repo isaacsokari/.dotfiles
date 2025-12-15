@@ -134,6 +134,7 @@ return {
 					end
 
 					map("<leader>cl", "<cmd>LspInfo<cr>", "[L]sp Info")
+					map("<leader>cL", "<cmd>LspRestart<cr>", "Restart LSPs")
 
 					---@diagnostic disable-next-line: no-unknown
 					local telescope_builtin = require("telescope.builtin")
