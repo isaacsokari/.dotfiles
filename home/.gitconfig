@@ -107,7 +107,7 @@
 	insteadOf = "gist:"
 
 [push]
-	default = matching
+	default = current
 
 [pull]
 	; rebase = true
