@@ -1,3 +1,5 @@
+local util = require("conform.util")
+
 return {
 
 	-- lsp
@@ -189,7 +191,7 @@ return {
 		optional = true,
 
 		opts = function(_, opts)
-			local formatters = { "biome", "prettierd", "prettier", stop_after_first = true }
+			local formatters = { "prettierd", "prettier", "biome", stop_after_first = true }
 			local supported_fts = {
 				"javascript",
 				"javascriptreact",
@@ -200,9 +202,25 @@ return {
 			opts.formatters_by_ft = opts.formatters_by_ft or {}
 
 			for _, ft in ipairs(supported_fts) do
-				---@diagnostic disable-next-line: no-unknown
 				opts.formatters_by_ft[ft] = formatters
 			end
+
+			opts.formatters = opts.formatters or {}
+
+			local prettier_configs = {
+				".prettierrc",
+				".prettierrc.json",
+				".prettierrc.yml",
+				".prettierrc.yaml",
+			}
+			local can_use_prettier = function(self, ctx)
+				return util.root_file(prettier_configs)(self, ctx) ~= nil
+			end
+
+			opts.formatters = vim.tbl_deep_extend("force", opts.formatters, {
+				prettierd = { condition = can_use_prettier },
+				prettier = { condition = can_use_prettier },
+			})
 		end,
 	},
 }
