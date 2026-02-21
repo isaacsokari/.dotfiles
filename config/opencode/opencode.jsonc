@@ -13,5 +13,37 @@
       ],
       "enabled": true
     }
+  },
+  "permission": {
+    "read": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.env.*": "deny",
+      "*.env.example": "allow",
+      "*.env.sample": "allow"
+    },
+    "bash": {
+      "*": "ask",
+
+      "git *": "ask",
+      "git log": "allow",
+      "git show": "allow",
+      "git status *": "allow",
+      "git diff *": "allow",
+      "git log *": "allow",
+      "git show *": "allow",
+      "git branch --list *": "allow",
+      "git rev-parse *": "allow",
+      "git ls-files *": "allow",
+      "git remote -v": "allow",
+      "git blame *": "allow",
+      "git shortlog *": "allow",
+      "git tag --list *": "allow",
+      "git stash list": "allow",
+
+      "npm *": "allow",
+      "rm *": "deny",
+      "grep *": "allow"
+    },
   }
 }
