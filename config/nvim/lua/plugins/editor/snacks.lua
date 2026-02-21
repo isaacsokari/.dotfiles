@@ -139,6 +139,10 @@ return {
 			Snacks.bufdelete.other()
 		end, { desc = "Delete Other Buffers" })
 
+		keymap.set("n", "<leader>ba", function()
+			Snacks.bufdelete.all()
+		end, { desc = "Delete All Buffers" })
+
 		-- lazygit
 		if vim.fn.executable("lazygit") == 1 then
 			keymap.set("n", "<leader>gG", function()

@@ -232,3 +232,47 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 	end,
 	group = augroup("filetype_yaml_eruby"),
 })
+
+local function has_real_buffers(excluded_buf)
+	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+		if buf ~= excluded_buf and vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buflisted then
+			-- skip empty unnamed buffers (Neovim creates these automatically)
+			local is_empty = vim.bo[buf].buftype == ""
+				and vim.api.nvim_buf_get_name(buf) == ""
+				and not vim.bo[buf].modified
+				and vim.api.nvim_buf_line_count(buf) == 1
+				and vim.api.nvim_buf_get_lines(buf, 0, 1, false)[1] == ""
+			if not is_empty then
+				return true
+			end
+		end
+	end
+	return false
+end
+
+vim.api.nvim_create_autocmd("BufDelete", {
+	group = augroup("open_dashboard_after_last_buffer"),
+	callback = function(ev)
+		vim.schedule(function()
+			if not rawget(_G, "Snacks") or not Snacks.dashboard then
+				return
+			end
+
+			-- don't open if a dashboard is already visible
+			for _, win in ipairs(vim.api.nvim_list_wins()) do
+				local buf = vim.api.nvim_win_get_buf(win)
+				if vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].filetype == "snacks_dashboard" then
+					return
+				end
+			end
+
+			-- exclude the just-deleted buffer from the check since BufDelete
+			-- fires before the buffer is fully removed
+			if has_real_buffers(ev.buf) then
+				return
+			end
+
+			Snacks.dashboard.open({ buf = 0, win = 0 })
+		end)
+	end,
+})
