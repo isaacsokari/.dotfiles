@@ -13,5 +13,79 @@
       ],
       "enabled": true
     }
+  },
+  "permission": {
+    "read": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.env.*": "deny",
+      "*.env.example": "allow",
+      "*.env.sample": "allow"
+    },
+    "bash": {
+      // "*": "allow",
+
+      // system destructive
+      "sudo *": "deny",
+      "su *": "deny",
+      "dd *": "deny",
+      "mkfs *": "deny",
+      "shred *": "deny",
+      "shutdown *": "deny",
+      "reboot *": "deny",
+      "kill -9 *": "deny",
+      "killall *": "deny",
+      "pkill *": "deny",
+      "chmod -R 777 *": "deny",
+      "chmod 000 *": "deny",
+      "chown -R *": "deny",
+      "env": "deny",
+      "printenv": "deny",
+      "rm -rf *": "deny",
+      "rm -r *": "deny",
+
+      "rm *": "ask",
+
+      // safe shell commands
+      "ls *": "allow",
+      "cat *": "allow",
+      "head *": "allow",
+      "tail *": "allow",
+      "wc *": "allow",
+      "grep *": "allow",
+      "rg *": "allow",
+      "find *": "allow",
+      "which *": "allow",
+      "echo *": "allow",
+      "pwd": "allow",
+      "file *": "allow",
+      "stat *": "allow",
+
+      // git read-only
+      "git *": "allow",
+
+      // git mutable (prompt)
+      "git commit --amend *": "ask",
+      "git rebase *": "ask",
+      "git branch -d *": "ask",
+      "git tag -d *": "ask",
+      "git checkout -- *": "ask",
+      "git restore *": "ask",
+      "git push *": "ask",
+
+      // git destructive (block)
+      "git push --force *": "deny",
+      "git push -f *": "deny",
+      "git push --delete *": "deny",
+      "git reset --hard *": "deny",
+      "git clean *": "deny",
+      "git stash drop *": "deny",
+      "git stash clear": "deny",
+      "git branch -D *": "deny",
+      "git filter-branch *": "deny",
+      "git reflog expire *": "deny",
+      "git gc --prune*": "deny"
+
+    },
   }
 }
