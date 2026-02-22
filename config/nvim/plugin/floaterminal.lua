@@ -36,7 +36,12 @@ local function disable_keybindings(bufnr)
 
 	vim.api.nvim_create_autocmd("BufEnter", {
 		group = group,
+		buffer = bufnr,
 		callback = function()
+			if not vim.api.nvim_buf_is_valid(bufnr) then
+				return
+			end
+
 			local modes_to_disable = { "n", "i", "v", "t" }
 
 			local keys_to_disable = {
@@ -61,7 +66,11 @@ local function configure_buffer(bufnr)
 
 	vim.api.nvim_create_autocmd("BufEnter", {
 		group = group,
+		buffer = bufnr,
 		callback = function()
+			if not vim.api.nvim_buf_is_valid(bufnr) then
+				return
+			end
 			vim.bo[bufnr].buflisted = false
 		end,
 	})
