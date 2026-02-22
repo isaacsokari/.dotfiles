@@ -4,14 +4,22 @@
   "share": "disabled",
   "mcp": {
     "MCP_DOCKER": {
+      "enabled": false,
       "type": "local",
       "command": [
         "docker",
         "mcp",
         "gateway",
         "run"
-      ],
-      "enabled": true
+      ]
+    },
+    "context7": {
+      "enabled": false,
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        // "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}"
+      }
     }
   },
   "permission": {
