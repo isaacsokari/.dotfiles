@@ -136,6 +136,9 @@ local function toggle_terminal()
 		-- set buftype to terminal if it isn't one
 		if vim.bo[state.floating.buf].buftype ~= "terminal" then
 			vim.cmd.term()
+			-- :term creates a new buffer; update state to track it and hide it
+			state.floating.buf = vim.api.nvim_win_get_buf(state.floating.win)
+			vim.bo[state.floating.buf].buflisted = false
 		end
 
 		vim.cmd.startinsert()
