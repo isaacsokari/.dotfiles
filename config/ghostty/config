@@ -8,6 +8,9 @@ font-family = Cascadia Code Regular SemiLight
 # previous value, hidden, didn't allow having tabs
 macos-titlebar-style = hidden
 
+# set option key as meta, values: true (for both), left, right
+macos-option-as-alt = true
+
 background-opacity = 0.95
 background-blur-radius = 20
 
