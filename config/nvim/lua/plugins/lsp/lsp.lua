@@ -177,7 +177,7 @@ return {
 					--
 					-- When you move your cursor, the highlights will be cleared (the second autocommand).
 					local client = vim.lsp.get_client_by_id(event.data.client_id)
-					if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+					if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
 						local highlight_augroup =
 							vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
 						vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
@@ -220,15 +220,15 @@ return {
 					end
 
 					-- this is managed by snacks.nvim
-					-- if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+					-- if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
 					-- 	map("<leader>uh", function()
 					-- 		vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
 					-- 	end, "Toggle Inlay [H]ints")
 					-- end
 
 					if client and common_utils.has("snacks") then
-						local hasWillRename = client.supports_method(vim.lsp.protocol.Methods.workspace_willRenameFiles)
-						local hasDidRename = client.supports_method(vim.lsp.protocol.Methods.workspace_didRenameFiles)
+						local hasWillRename = client:supports_method(vim.lsp.protocol.Methods.workspace_willRenameFiles)
+						local hasDidRename = client:supports_method(vim.lsp.protocol.Methods.workspace_didRenameFiles)
 
 						if hasWillRename or hasDidRename then
 							map("<leader>cR", function()
@@ -237,12 +237,12 @@ return {
 						end
 					end
 
-					if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_codeLens) then
+					if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_codeLens) then
 						map("<leader>cc", vim.lsp.codelens.run, "Run Codelens", { "n", "v" })
 						map("<leader>cC", vim.lsp.codelens.refresh, "Refresh & Display Codelens", { "n" })
 					end
 
-					if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_signatureHelp) then
+					if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_signatureHelp) then
 						map("gK", function()
 							return vim.lsp.buf.signature_help()
 						end, "Signature Help")
