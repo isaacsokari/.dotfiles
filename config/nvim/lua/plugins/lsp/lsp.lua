@@ -239,7 +239,7 @@ return {
 
 					if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_codeLens) then
 						map("<leader>cc", vim.lsp.codelens.run, "Run Codelens", { "n", "v" })
-						map("<leader>cC", vim.lsp.codelens.refresh, "Refresh & Display Codelens", { "n" })
+						map("<leader>cC", vim.lsp.codelens.enable, "Refresh & Display Codelens", { "n" })
 					end
 
 					if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_signatureHelp) then
