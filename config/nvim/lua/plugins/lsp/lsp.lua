@@ -133,8 +133,8 @@ return {
 						vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 					end
 
-					map("<leader>cl", "<cmd>LspInfo<cr>", "[L]sp Info")
-					map("<leader>cL", "<cmd>LspRestart<cr>", "Restart LSPs")
+					map("<leader>cl", "<cmd>checkhealth vim.lsp<cr>", "[L]sp Info")
+					map("<leader>cL", "<cmd>lsp restart<cr>", "Restart LSPs")
 
 					---@diagnostic disable-next-line: no-unknown
 					local telescope_builtin = require("telescope.builtin")
