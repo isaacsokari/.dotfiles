@@ -1,6 +1,6 @@
 ---
 description: Create a clean conventional commit
-agent: plan
+agent: build
 subtask: true
 ---
 
