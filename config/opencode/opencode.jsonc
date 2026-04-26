@@ -19,6 +19,11 @@
       "headers": {
         // "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}"
       }
+    },
+    "chrome-devtools": {
+      "enabled": false,
+      "type": "local",
+      "command": ["npx", "-y", "chrome-devtools-mcp@latest"]
     }
   },
   "permission": {
