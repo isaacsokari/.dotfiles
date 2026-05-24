@@ -104,11 +104,6 @@ fi
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
-if which rbenv > /dev/null; then
-  eval "$(rbenv init -)"; 
-  alias ruby='$(rbenv prefix)/bin/ruby'
-fi
-
 if which keychain > /dev/null; then
   /usr/bin/keychain --quiet --nogui $HOME/.ssh/id_ed25519
   source $HOME/.keychain/$HOST-sh
