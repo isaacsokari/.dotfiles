@@ -3,3 +3,5 @@
 config/opencode/skills/vercel-react-best-practices
 .claude
 CLAUDE.md
+
+.pnpm-store
