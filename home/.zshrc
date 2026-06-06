@@ -93,7 +93,6 @@ if which fzf > /dev/null; then
   eval "$(fzf --zsh)";
   export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 fi
-if which zoxide > /dev/null; then eval "$(zoxide init --cmd cd zsh)"; fi
 
 # For Loading the SSH key
 if [ -f /usr/bin/keychain ]; then
@@ -192,6 +191,10 @@ function take() {
 
 if which starship > /dev/null; then
   eval "$(starship init zsh)"
+fi
+
+if which zoxide > /dev/null; then
+  eval "$(zoxide init --cmd cd zsh)"
 fi
 
 # zprof
