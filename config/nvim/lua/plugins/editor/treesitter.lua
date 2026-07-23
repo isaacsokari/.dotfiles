@@ -7,6 +7,7 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		branch = "main",
 		version = false, -- last release is way too old and doesn't work on Windows
+		build = ":TSUpdate", -- keep installed parsers compatible with plugin queries
 
 		opts_extend = { "ensure_installed" },
 
