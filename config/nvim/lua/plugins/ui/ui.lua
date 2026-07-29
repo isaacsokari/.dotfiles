@@ -115,13 +115,6 @@ return {
 	},
 
 	{
-		"rcarriga/nvim-notify",
-		opts = {
-			timeout = 5000,
-		},
-	},
-
-	{
 		"nvim-lualine/lualine.nvim",
 		event = "VeryLazy",
 		init = function()
