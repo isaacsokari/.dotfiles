@@ -25,7 +25,7 @@ return {
 							completeUnimported = true,
 							staticcheck = true,
 							directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
-							semanticTokens = true,
+							semanticTokens = true, -- gopls no longer advertises semantic tokens by default
 
 							hints = {
 								-- @see https://github.com/golang/tools/blob/master/gopls/doc/inlayHints.md
@@ -47,27 +47,6 @@ return {
 						},
 					},
 				},
-			},
-
-			setup = {
-				gopls = function(_, opts)
-					-- workaround for gopls not supporting semanticTokensProvider
-					-- https://github.com/golang/go/issues/54531#issuecomment-1464982242
-					vim.lsp.on_attach(function(client, _)
-						if not client.server_capabilities.semanticTokensProvider then
-							local semantic = client.config.capabilities.textDocument.semanticTokens
-							client.server_capabilities.semanticTokensProvider = {
-								full = true,
-								legend = {
-									tokenTypes = semantic.tokenTypes,
-									tokenModifiers = semantic.tokenModifiers,
-								},
-								range = true,
-							}
-						end
-					end, "gopls")
-					-- end workaround
-				end,
 			},
 		},
 	},
