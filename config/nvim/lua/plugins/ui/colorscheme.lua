@@ -1,6 +1,4 @@
 return {
-	{ "rose-pine/neovim", name = "rose-pine" },
-
 	{
 		"catppuccin/nvim",
 		priority = 1000,

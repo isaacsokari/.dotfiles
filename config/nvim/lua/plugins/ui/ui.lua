@@ -1,5 +1,3 @@
-local lsp_symbols = require("ts.config.lsp_symbols")
-
 ---@return {get_fg?:string}?
 local function get_fg(name)
 	local hl = vim.api.nvim_get_hl(0, { name = name, link = false })
@@ -254,36 +252,6 @@ return {
 				require("mini.icons").mock_nvim_web_devicons()
 				return package.loaded["nvim-web-devicons"]
 			end
-		end,
-	},
-
-	-- symbol outline
-	{
-		"hedyhli/outline.nvim",
-		keys = { { "<leader>cs", "<cmd>Outline<cr>", desc = "Toggle Outline" } },
-		cmd = "Outline",
-		opts = function()
-			local defaults = require("outline.config").defaults
-			local opts = {
-				symbols = {
-					icons = {},
-					filter = vim.deepcopy(lsp_symbols),
-				},
-				keymaps = {
-					up_and_jump = "<up>",
-					down_and_jump = "<down>",
-				},
-			}
-
-			for kind, symbol in pairs(defaults.symbols.icons) do
-				local icon_kinds = require("ts.config.icons").kinds
-				---@diagnostic disable-next-line: assign-type-mismatch
-				icon_kinds[kind] = {
-					icon = icon_kinds[kind] or symbol.icon,
-					hl = symbol.hl,
-				}
-			end
-			return opts
 		end,
 	},
 }

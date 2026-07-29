@@ -172,9 +172,6 @@ return {
 		end,
 	},
 
-	-- treesitter playground
-	{ "nvim-treesitter/playground", lazy = true },
-
 	-- nvim-treesitter-context
 	{
 		"nvim-treesitter/nvim-treesitter-context",
