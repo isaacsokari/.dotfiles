@@ -242,17 +242,6 @@ return {
 		end,
 	},
 
-	-- Add lazydev source to cmp
-	{
-		"hrsh7th/nvim-cmp",
-		optional = true,
-		opts = function(_, opts)
-			opts.sources = opts.sources or {}
-
-			table.insert(opts.sources, { name = "lazydev", group_index = 0 })
-		end,
-	},
-
 	-- Fast and feature-rich surround actions. For text that includes
 	-- surrounding characters like brackets or quotes, this allows you
 	-- to select the text inside, change or modify the surrounding characters,

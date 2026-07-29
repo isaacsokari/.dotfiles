@@ -8,7 +8,7 @@ return {
 			integrations = {
 				aerial = true,
 				alpha = true,
-				cmp = true,
+				blink_cmp = { style = "bordered" },
 				dashboard = true,
 				flash = true,
 				grug_far = true,

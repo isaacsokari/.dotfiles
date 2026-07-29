@@ -41,8 +41,8 @@ return {
 			-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
 			{ "j-hui/fidget.nvim", opts = {} },
 
-			-- Allows extra capabilities provided by nvim-cmp
-			"hrsh7th/cmp-nvim-lsp",
+			-- Allows extra completion capabilities provided by blink.cmp
+			"saghen/blink.cmp",
 		},
 
 		opts = {
@@ -260,10 +260,8 @@ return {
 
 			-- LSP servers and clients are able to communicate to each other what features they support.
 			--  By default, Neovim doesn't support everything that is in the LSP specification.
-			--  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
-			--  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
-			local capabilities = vim.lsp.protocol.make_client_capabilities()
-			capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+			--  blink.cmp adds completion capabilities that we broadcast to the servers.
+			local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 			-- get servers from opts
 			local servers = opts.servers or {}
