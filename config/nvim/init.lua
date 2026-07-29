@@ -34,9 +34,6 @@ require("lazy").setup({
 		{ import = "plugins.lang" },
 	},
 
-	-- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
-
 	---@diagnostic disable-next-line: missing-fields
 }, {
 	ui = {
