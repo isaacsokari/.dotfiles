@@ -159,7 +159,6 @@ return {
 					-- Execute a code action, usually your cursor needs to be on top of an error
 					-- or a suggestion from your LSP for this to activate.
 					map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
-					-- { "<leader>cA", LazyVim.lsp.action.source, desc = "Source Action", has = "codeAction" },
 
 					-- WARN: This is not Goto Definition, this is Goto Declaration.
 					--  For example, in C this would take you to the header.
@@ -220,13 +219,6 @@ return {
 						end
 					end
 
-					-- this is managed by snacks.nvim
-					-- if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-					-- 	map("<leader>uh", function()
-					-- 		vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
-					-- 	end, "Toggle Inlay [H]ints")
-					-- end
-
 					if client and common_utils.has("snacks") then
 						local hasWillRename = client:supports_method(vim.lsp.protocol.Methods.workspace_willRenameFiles)
 						local hasDidRename = client:supports_method(vim.lsp.protocol.Methods.workspace_didRenameFiles)
@@ -262,6 +254,14 @@ return {
 			--  By default, Neovim doesn't support everything that is in the LSP specification.
 			--  blink.cmp adds completion capabilities that we broadcast to the servers.
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
+
+			-- Use nvim lsp as LSP client
+			-- Tell the server the capability of foldingRange,
+			-- Neovim hasn't added foldingRange to default capabilities, users must add it manually
+			capabilities.textDocument.foldingRange = {
+				dynamicRegistration = false,
+				lineFoldingOnly = true,
+			}
 
 			-- get servers from opts
 			local servers = opts.servers or {}

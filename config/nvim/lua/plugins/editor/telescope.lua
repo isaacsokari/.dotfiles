@@ -25,7 +25,6 @@ end
 return {
 	{
 		"nvim-telescope/telescope.nvim",
-		-- tag = "0.1.8",
 		event = "VimEnter",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
@@ -159,10 +158,7 @@ return {
 							path = "%:p:h",
 							cwd = telescope_buffer_dir(),
 							respect_gitignore = false,
-							-- hidden = true,
 							grouped = true,
-							-- previewer = false,
-							-- initial_mode = "normal",
 							layout_config = { height = 40 },
 						})
 					end,
@@ -236,21 +232,8 @@ return {
 			})
 
 			opts.pickers = {
-				-- find_files = {
-				--   theme = "ivy",
-				-- },
-				-- live_grep = {
-				--   theme = "ivy",
-				-- },
-				-- grep_string = {
-				--   theme = "ivy",
-				-- },
 				diagnostics = {
-					-- theme = "ivy",
 					initial_mode = "normal",
-					layout_config = {
-						-- preview_cutoff = 9999,
-					},
 				},
 			}
 
@@ -258,7 +241,6 @@ return {
 				fzf = {},
 
 				file_browser = {
-					-- theme = "dropdown",
 					-- disables netrw and use telescope-file-browser in its place
 					hijack_netrw = true,
 					mappings = {

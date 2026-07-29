@@ -1,17 +1,4 @@
 return {
-	-- {
-	--   "dinhhuy258/git.nvim",
-	--   event = "BufReadPre",
-	--   opts = {
-	--     keymaps = {
-	--       -- Open blame window
-	--       blame = "<Leader>gb",
-	--       -- Open file/folder in git repository
-	--       browse = "<Leader>go",
-	--     },
-	--   },
-	-- },
-
 	-- git signs highlights text that has changed since the list
 	-- git commit, and also lets you interactively stage & unstage
 	-- hunks in a commit.
@@ -43,14 +30,8 @@ return {
         map("n", "<leader>ghR", gs.reset_buffer, "Reset Buffer")
         map("n", "<leader>ghp", gs.preview_hunk_inline, "Preview Hunk Inline")
         map("n", "<leader>ghb", function() gs.blame_line({ full = true }) end, "Blame Line")
-        -- map("n", "<leader>ghd", gs.diffthis, "Diff This")
-        -- map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
         map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
 			end,
 		},
 	},
-
-	-- {
-	--   "tpope/vim-fugitive",
-	-- },
 }

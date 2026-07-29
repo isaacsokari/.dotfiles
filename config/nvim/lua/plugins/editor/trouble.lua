@@ -1,14 +1,3 @@
--- return {
---   "folke/trouble.nvim",
---   dependencies = { "nvim-tree/nvim-web-devicons" },
---   opts = {
---     -- your configuration comes here
---     -- or leave it empty to use the default settings
---     -- refer to the configuration section below
---     use_diagnostic_signs = true,
---   },
--- }
-
 return {
 	"folke/trouble.nvim",
 	cmd = { "Trouble" },
@@ -26,34 +15,5 @@ return {
 		{ "<leader>xS", "<cmd>Trouble lsp toggle<cr>", desc = "LSP references/definitions/... (Trouble)" },
 		{ "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Location List (Trouble)" },
 		{ "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List (Trouble)" },
-
-		--   {
-		--     "[q",
-		--     function()
-		--       if require("trouble").is_open() then
-		--         require("trouble").prev({ skip_groups = true, jump = true })
-		--       else
-		--         local ok, err = pcall(vim.cmd.cprev)
-		--         if not ok then
-		--           vim.notify(err, vim.log.levels.ERROR)
-		--         end
-		--       end
-		--     end,
-		--     desc = "Previous Trouble/Quickfix Item",
-		--   },
-		--   {
-		--     "]q",
-		--     function()
-		--       if require("trouble").is_open() then
-		--         require("trouble").next({ skip_groups = true, jump = true })
-		--       else
-		--         local ok, err = pcall(vim.cmd.cnext)
-		--         if not ok then
-		--           vim.notify(err, vim.log.levels.ERROR)
-		--         end
-		--       end
-		--     end,
-		--     desc = "Next Trouble/Quickfix Item",
-		--   },
 	},
 }
