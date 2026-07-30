@@ -9,7 +9,6 @@ return {
 				blink_cmp = { style = "bordered" },
 				grug_far = true,
 				gitsigns = true,
-				indent_blankline = { enabled = true },
 				lsp_trouble = true,
 				mason = true,
 				markdown = true,
