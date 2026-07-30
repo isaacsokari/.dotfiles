@@ -88,8 +88,8 @@ opt.wrap = true -- Enable line wrap
 -- Sets how neovim will display certain whitespace characters in the editor.
 --  See `:help 'list'`
 --  and `:help 'listchars'`
-opt.list = true
-opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+opt.list = false
+opt.listchars = { tab = "» ", trail = "·", nbsp = "␣", multispace = "---+" }
 
 opt.mouse = "a" -- Enable mouse mode
 
