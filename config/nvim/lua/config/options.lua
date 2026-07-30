@@ -115,10 +115,10 @@ opt.virtualedit = "block" -- Allow cursor to move where there is no text in visu
 opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.winminwidth = 5 -- Minimum window width
 
--- add file path to top right, useful for multiple splits
+-- add file path to top, useful for multiple splits
 -- this uses the usual statusline item syntax ':h statusline' for hints
--- opt.winbar = "%= %m %f " -- yes there's a trailing space
-opt.winbar = "%m %f" -- top right
+-- opt.winbar = "%= %m %f " -- top right, yes there's a trailing space
+opt.winbar = "%m %f" -- top left
 
 opt.guicursor = ""
 opt.number = true -- Print line number
