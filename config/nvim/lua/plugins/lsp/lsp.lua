@@ -268,6 +268,11 @@ return {
 			local server_names = vim.tbl_keys(servers)
 			table.sort(server_names)
 
+			-- Apply explicit overrides before mason-lspconfig enables installed servers.
+			for server_name, server in pairs(servers) do
+				vim.lsp.config(server_name, server)
+			end
+
 			-- Ensure the servers and tools above are installed
 			--  To check the current status of installed tools and/or manually install
 			--  other tools, you can run
@@ -276,7 +281,7 @@ return {
 			--  You can press `g?` for help in this menu.
 			require("mason-lspconfig").setup({
 				ensure_installed = server_names,
-				automatic_enable = false,
+				automatic_enable = true,
 			})
 
 			-- You can add other tools here that you want Mason to install
@@ -286,11 +291,6 @@ return {
 					"stylua", -- Used to format Lua code
 				},
 			})
-
-			for server_name, server in pairs(servers) do
-				vim.lsp.config(server_name, server)
-			end
-			vim.lsp.enable(server_names)
 		end,
 	},
 }
