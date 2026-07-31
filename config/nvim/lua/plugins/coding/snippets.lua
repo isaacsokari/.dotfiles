@@ -17,25 +17,34 @@ return {
 			history = true,
 			delete_check_events = "TextChanged",
 		},
-
-    -- stylua: ignore
-    keys = {
-      {
-        "<tab>",
-        function()
-          return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
-        end,
-        expr = true, silent = true, mode = "i",
-      },
-      { "<tab>", function() require("luasnip").jump(1) end, mode = { "i", "s" } },
-      { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
-      { "<c-tab>",
-        function()
-          if require("luasnip").choice_active() then
-            require("luasnip").change_choice(1)
-          end
-        end,
-        mode = { "i", "s" } },
-    },
+		keys = {
+			{
+				"<tab>",
+				function()
+					return require("luasnip").expand_or_locally_jumpable() and "<Plug>luasnip-expand-or-jump" or "<tab>"
+				end,
+				expr = true,
+				silent = true,
+				mode = { "i", "s" },
+			},
+			{
+				"<s-tab>",
+				function()
+					return require("luasnip").locally_jumpable(-1) and "<Plug>luasnip-jump-prev" or "<s-tab>"
+				end,
+				expr = true,
+				silent = true,
+				mode = { "i", "s" },
+			},
+			{
+				"<c-tab>",
+				function()
+					if require("luasnip").choice_active() then
+						require("luasnip").change_choice(1)
+					end
+				end,
+				mode = { "i", "s" },
+			},
+		},
 	},
 }
