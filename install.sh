@@ -73,6 +73,12 @@ link_config "starship.toml"
 link_config "ghostty"
 link_config "opencode"
 
+if [[ uname -eq "Darwin" ]]; then # mac os only config
+  if which aerospace > /dev/null; then
+    link_config "aerospace";
+  fi
+fi
+
 echo ""
 echo ""
 echo "======================================================================="
