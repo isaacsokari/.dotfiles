@@ -197,4 +197,11 @@ if which zoxide > /dev/null; then
   eval "$(zoxide init --cmd cd zsh)"
 fi
 
+if which bundle > /dev/null; then
+  alias bx='bundle exec'
+  alias bxr='bundle exec rails'
+  alias bxrc='bundle exec rails console'
+  alias bxrs='bundle exec rails server'
+fi
+
 # zprof
