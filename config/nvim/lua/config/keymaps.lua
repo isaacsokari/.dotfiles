@@ -42,7 +42,20 @@ keymap.set("n", "N", "Nzzzv")
 -- keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 keymap.set("n", "<leader>fs", "<cmd>source %<CR>", { silent = true, desc = "Source Current File" })
 keymap.set("n", "<leader>fx", "<cmd>!chmod +x %<CR>", { silent = true, desc = "Make File Executable" })
-keymap.set("n", "<leader>fy", "<cmd>!echo % | pbcopy<CR>", { silent = true, desc = "Copy Current Filename" })
+
+local copy_to_clipboard = function(s)
+	vim.fn.setreg("+", s)
+	vim.notify("Copied " .. s)
+end
+
+keymap.set("n", "<leader>fy", function()
+	copy_to_clipboard(vim.fn.expand("%"))
+end, { desc = "Copy Current Filename" })
+
+keymap.set("n", "<leader>fl", function()
+	local location = string.format("%s:%d:%d", vim.fn.expand("%"), vim.fn.line("."), vim.fn.col("."))
+	copy_to_clipboard(location)
+end, { desc = "Copy Current File Location" })
 
 -- Terminal keymap.setpings
 keymap.set("t", "<esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
