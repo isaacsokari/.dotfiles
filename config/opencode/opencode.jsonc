@@ -34,6 +34,12 @@
       "*.env.example": "allow",
       "*.env.sample": "allow"
     },
+    "edit": {
+      "~/.claude/**": "deny"
+    },
+    "external_directory": {
+      "~/.claude/**": "allow"
+    },
     "bash": {
       // "*": "allow",
 
