@@ -7,6 +7,18 @@
 [include]
     path = ~/.gitconfig.local
 
+# NOTE: for conditional config
+#
+# [includeIf "gitdir:~/projects/work/"]
+#     path = ~/.gitconfig-work
+#
+# [user]
+#     name = Your Work Name
+#     email = you@company.com
+#
+# [core]
+#     sshCommand = ssh -i ~/.ssh/id_ed25519_work -o IdentitiesOnly=yes
+
 [core]
 	# Use custom `.gitignore` and `.gitattributes`
 	excludesfile = ~/.gitignore
