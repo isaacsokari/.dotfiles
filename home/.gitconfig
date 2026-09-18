@@ -17,7 +17,10 @@
 #     email = you@company.com
 #
 # [core]
-#     sshCommand = ssh -i ~/.ssh/id_ed25519_work -o IdentitiesOnly=yes
+#     sshCommand = ssh -F /dev/null -i ~/.ssh/id_ed25519_work -o IdentitiesOnly=yes
+
+# test github ssh setup with
+# ssh -F /dev/null -i ~/.ssh/id_ed25519_work -T git@github.com
 
 [core]
 	# Use custom `.gitignore` and `.gitattributes`
