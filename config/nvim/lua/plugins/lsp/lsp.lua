@@ -288,6 +288,7 @@ return {
 			-- for you, so that they are available from within Neovim.
 			require("mason-tool-installer").setup({
 				ensure_installed = {
+					"oxfmt", -- Used to format JavaScript and TypeScript code
 					"stylua", -- Used to format Lua code
 				},
 			})

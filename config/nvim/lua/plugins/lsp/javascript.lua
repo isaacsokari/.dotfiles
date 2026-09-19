@@ -125,7 +125,7 @@ return {
 		optional = true,
 
 		opts = function(_, opts)
-			local formatters = { "prettierd", "prettier", "biome", stop_after_first = true }
+			local formatters = { "prettierd", "prettier", "oxfmt", stop_after_first = true }
 			local supported_fts = {
 				"javascript",
 				"javascriptreact",
