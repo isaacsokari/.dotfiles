@@ -24,6 +24,24 @@
       "enabled": false,
       "type": "local",
       "command": ["npx", "-y", "chrome-devtools-mcp@latest"]
+    },
+    "figma": {
+      "type": "local",
+      "command": [
+        "docker", "run",
+        "--rm", "-i", "--init",
+        "--read-only",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges:true",
+        "--pids-limit=128",
+        "--memory=512m",
+        "--tmpfs", "/tmp:rw,noexec,nosuid,size=128m",
+        "--tmpfs", "/home/node:rw,noexec,nosuid,uid=1000,gid=1000,size=32m",
+        "-p", "127.0.0.1:9224:9224",
+        "opencode-figma-mcp:1.40.2"
+      ],
+      "enabled": false,
+      "timeout": 30000
     }
   },
   // Practical coding profile: auto mode approves every ask rule below.
@@ -218,7 +236,8 @@
       "~/.claude/*": "allow",
       "~/.agents/*": "allow",
       "~/.config/opencode/*": "allow"
-    }
+    },
+    "figma_*": "ask"
   },
   "agent": {
     // Global edit allowances must not make the plan agent writable.
