@@ -227,5 +227,8 @@
         "edit": "deny"
       }
     }
-  }
+  },
+  "plugin": [
+    "@plannotator/opencode@latest"
+  ]
 }
