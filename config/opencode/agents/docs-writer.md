@@ -2,8 +2,10 @@
 description: ALWAYS use this when writing docs
 color: "#38A3EE"
 mode: subagent
-tools:
-  bash: false
+permissions:
+  - action: shell
+    resource: "*"
+    effect: deny
 ---
 
 You are an expert technical documentation writer

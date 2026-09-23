@@ -1,0 +1,11 @@
+node_modules
+package.json
+package-lock.json
+bun.lock
+
+# Local service state and Herdr-managed integration files.
+service.json
+herdr-opencode/
+herdr-tui-session.js
+plugins/herdr-agent-state.js
+tui.jsonc

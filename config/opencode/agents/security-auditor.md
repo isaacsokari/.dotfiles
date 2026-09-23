@@ -1,9 +1,10 @@
 ---
 description: Performs security audits and identifies vulnerabilities
 mode: subagent
-tools:
-  write: false
-  edit: false
+permissions:
+  - action: edit
+    resource: "*"
+    effect: deny
 ---
 
 You are a security expert. Focus on identifying potential security issues.
