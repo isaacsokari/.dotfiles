@@ -1,0 +1,235 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "share": "disabled",
+  "mcp": {
+    "MCP_DOCKER": {
+      "enabled": false,
+      "type": "local",
+      "command": [
+        "docker",
+        "mcp",
+        "gateway",
+        "run"
+      ]
+    },
+    "context7": {
+      "enabled": false,
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        // "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}"
+      }
+    },
+    "chrome-devtools": {
+      "enabled": false,
+      "type": "local",
+      "command": ["npx", "-y", "chrome-devtools-mcp@latest"]
+    },
+    "figma": {
+      "type": "local",
+      "command": [
+        "docker", "run",
+        "--rm", "-i", "--init",
+        "--read-only",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges:true",
+        "--pids-limit=128",
+        "--memory=512m",
+        "--tmpfs", "/tmp:rw,noexec,nosuid,size=128m",
+        "--tmpfs", "/home/node:rw,noexec,nosuid,uid=1000,gid=1000,size=32m",
+        "-p", "127.0.0.1:9224:9224",
+        "opencode-figma-mcp:1.40.2"
+      ],
+      "enabled": false,
+      "timeout": 30000
+    }
+  },
+  // Practical coding profile: auto mode approves every ask rule below.
+  // Build/test scripts, search, and language servers are trusted with host access.
+  "formatter": true,
+  "lsp": true,
+  "permission": {
+    "*": "deny",
+    "read": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.env.*": "deny",
+      "*.env.example": "allow",
+      "*.env.sample": "allow",
+      "*.pem": "deny",
+      "*.key": "deny",
+      "*.p12": "deny",
+      "*.pfx": "deny",
+      "*.npmrc": "deny",
+      "*.pypirc": "deny",
+      "*.netrc": "deny",
+      "*auth.json": "deny",
+      "*credentials.json": "deny",
+      ".ssh/*": "deny",
+      "*/.ssh/*": "deny",
+      ".aws/*": "deny",
+      "*/.aws/*": "deny",
+      ".gnupg/*": "deny",
+      "*/.gnupg/*": "deny",
+      ".kube/*": "deny",
+      "*/.kube/*": "deny",
+      ".git": "deny",
+      "*/.git": "deny",
+      ".git/*": "deny",
+      "*/.git/*": "deny"
+    },
+    "edit": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.env.*": "deny",
+      "*.env.example": "allow",
+      "*.env.sample": "allow",
+      "*.pem": "deny",
+      "*.key": "deny",
+      "*.p12": "deny",
+      "*.pfx": "deny",
+      "*.npmrc": "deny",
+      "*.pypirc": "deny",
+      "*.netrc": "deny",
+      "*auth.json": "deny",
+      "*credentials.json": "deny",
+      ".ssh/*": "deny",
+      "*/.ssh/*": "deny",
+      ".aws/*": "deny",
+      "*/.aws/*": "deny",
+      ".gnupg/*": "deny",
+      "*/.gnupg/*": "deny",
+      ".kube/*": "deny",
+      "*/.kube/*": "deny",
+      // Keep directory denials after file exceptions; last match wins.
+      // Cover repo-relative paths as well as absolute paths.
+      "../*": "deny",
+      "*/../*": "deny",
+      ".git": "deny",
+      "*/.git": "deny",
+      ".git/*": "deny",
+      "*/.git/*": "deny"
+    },
+    "glob": "allow",
+    "list": "allow",
+    "todowrite": "allow",
+    "question": "allow",
+    "bash": {
+      "*": "ask",
+      // Common project scripts; their contents are not sandboxed.
+      "npm test *": "allow",
+      "npm run build *": "allow",
+      "npm run test *": "allow",
+      "npm run lint *": "allow",
+      "npm run typecheck *": "allow",
+      "npm run check *": "allow",
+      "pnpm build *": "allow",
+      "pnpm test *": "allow",
+      "pnpm lint *": "allow",
+      "pnpm typecheck *": "allow",
+      "pnpm check *": "allow",
+      "yarn build *": "allow",
+      "yarn test *": "allow",
+      "yarn lint *": "allow",
+      "yarn typecheck *": "allow",
+      "yarn check *": "allow",
+      "bun test *": "allow",
+      "bun run build *": "allow",
+      "bun run test *": "allow",
+      "bun run lint *": "allow",
+      "bun run typecheck *": "allow",
+      "bun run check *": "allow",
+      "pytest *": "allow",
+      "python -m pytest *": "allow",
+      "python3 -m pytest *": "allow",
+      "cargo build *": "allow",
+      "cargo test *": "allow",
+      "cargo check *": "allow",
+      "go build *": "allow",
+      "go test *": "allow",
+      // Routine Git inspection, rather than a blanket git allowance.
+      "git status *": "allow",
+      "git diff *": "allow",
+      "git log *": "allow",
+      "git show *": "allow",
+      "git branch --show-current": "allow",
+
+      "git *": "allow",
+
+      // git mutable (prompt)
+      "git commit --amend *": "ask",
+      "git rebase *": "ask",
+      "git branch -d *": "ask",
+      "git tag -d *": "ask",
+      "git checkout -- *": "ask",
+      "git restore *": "ask",
+      "git push *": "ask",
+
+      // Last match wins. These block common destructive command forms.
+      "sudo *": "deny",
+      "*/sudo *": "deny",
+      "su *": "deny",
+      "*/su *": "deny",
+      "rm *": "deny",
+      "*/rm *": "deny",
+      "dd *": "deny",
+      "*/dd *": "deny",
+      "mkfs*": "deny",
+      "*/mkfs*": "deny",
+      "shred *": "deny",
+      "*/shred *": "deny",
+      "shutdown *": "deny",
+      "*/shutdown *": "deny",
+      "reboot *": "deny",
+      "*/reboot *": "deny",
+      "kill -9 *": "deny",
+      "killall *": "deny",
+      "pkill *": "deny",
+      "chmod *777*": "deny",
+      "chmod *000*": "deny",
+      "chown *": "deny",
+      "env": "deny",
+      "printenv *": "deny",
+      "*/printenv *": "deny",
+      "*find *-delete*": "deny",
+      "*find *-exec*": "deny",
+      "*git *push *--force*": "deny",
+      "*git *push *-f*": "deny",
+      "*git *push *--delete*": "deny",
+      "*git *push * :*": "deny",
+      "*git *reset *--hard*": "deny",
+      "*git *clean *": "deny",
+      "*git *stash drop *": "deny",
+      "*git *stash clear *": "deny",
+      "*git *branch *-D*": "deny",
+      "*git *filter-branch *": "deny",
+      "*git *reflog expire *": "deny",
+      "*git *gc *--prune*": "deny"
+    },
+    "grep": "allow",
+    "task": "deny",
+    "webfetch": "deny",
+    "websearch": "deny",
+    "lsp": "allow",
+    "skill": "allow",
+    // Allow agent context outside the workspace; edit denials still apply.
+    "external_directory": {
+      "*": "deny",
+      "~/.claude/*": "allow",
+      "~/.agents/*": "allow",
+      "~/.config/opencode/*": "allow"
+    },
+    "figma_*": "ask"
+  },
+  "agent": {
+    // Global edit allowances must not make the plan agent writable.
+    "plan": {
+      "permission": {
+        "edit": "deny"
+      }
+    }
+  },
+  "plugin": [
+    "@plannotator/opencode@latest"
+  ]
+}
