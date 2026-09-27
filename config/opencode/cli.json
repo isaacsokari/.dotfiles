@@ -17,16 +17,20 @@
     "scrollbar": false,
     "thinking": "show",
     "permissions": "autoaccept",
-    "grouping": "auto"
+    "grouping": "auto",
+    "verbosity": "medium"
   },
   "animations": true,
   "terminal": {
     "copy": "select"
   },
   "tabs": {
-    "mode": "on",
+    "mode": "off",
     "layout": "vertical",
     "scope": "cwd",
     "indicators": "status"
+  },
+  "scroll": {
+    "acceleration": true
   }
 }
