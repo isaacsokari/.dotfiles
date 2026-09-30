@@ -1,0 +1,47 @@
+{
+  "skill_name": "test-audit",
+  "evals": [
+    {
+      "id": 1,
+      "name": "duplicate-proof",
+      "prompt": "Audit this small pricing module and clean up low-value tests and any obsolete production support they require. Preserve meaningful regression coverage. Explain your decisions and run the appropriate checks.",
+      "expected_output": "Removes the self-comparison and redundant private rounding test, deletes the unused __testRound export, and retains the quote boundary test. Gives evidence for deletion and uses the fixture's Node test commands.",
+      "files": ["evals/fixtures/duplicate-proof"],
+      "assertions": [
+        "Removes the self-comparison and redundant direct helper test while preserving the quote contract test.",
+        "Deletes __testRound without adding a replacement production seam.",
+        "The retained suite passes and detects a production mutation that omits rounding.",
+        "Explains the remaining owner-boundary proof and the absence of production consumers before deleting the seam.",
+        "Runs the fixture's actual baseline and final tests and reports their results."
+      ]
+    },
+    {
+      "id": 2,
+      "name": "contract-retention",
+      "prompt": "Review these tests for cleanup opportunities. The exact-byte codec test and authorization tests look overly specific to me. Which should we keep, repair, or remove? This is review only; give evidence and check the current baseline.",
+      "expected_output": "Retains the exact wire-format contract, identifies the role-denial test as vacuous because the disabled-account guard fires first, and reports the tenant-isolation baseline failure as a product defect. Makes no edits.",
+      "files": ["evals/fixtures/contract-retention"],
+      "assertions": [
+        "Retains the exact-byte codec test because the delimiter, prefix, and newline are an independent wire contract.",
+        "Identifies the viewer-role test's disabled-account false positive and proposes an enabled viewer with a forbidden-specific assertion.",
+        "Retains the failing cross-tenant test and reports the missing tenant check as a product bug.",
+        "Runs baseline tests and accurately reports their results, including the cross-tenant assertion failure.",
+        "Leaves all fixture files unchanged for the review-only request."
+      ]
+    },
+    {
+      "id": 3,
+      "name": "regression-authoring",
+      "prompt": "Our transport can recover on the third attempt, but sendWithRetry still rejects when maxAttempts is 3. Fix the bug and add the regression coverage you think is worthwhile. Please use the existing test setup.",
+      "expected_output": "Adds focused owner-boundary coverage using the existing transport interface, observes failure on the old implementation for the intended reason, fixes the off-by-one error, and observes success. Adds no test-only seam or redundant layer.",
+      "files": ["evals/fixtures/regression-authoring"],
+      "assertions": [
+        "Adds a regression through sendWithRetry that independently asserts success after two failures and a successful third attempt.",
+        "Actually runs the regression before the fix and observes the intended failure, then runs it successfully after the fix.",
+        "The final suite passes with the fix and fails when the original retry implementation is restored in an isolated control.",
+        "Repairs retry behavior for both success on the final allowed attempt and exhaustion without exceeding maxAttempts.",
+        "Uses the existing transport boundary without adding test-only exports, options, or wrappers."
+      ]
+    }
+  ]
+}
