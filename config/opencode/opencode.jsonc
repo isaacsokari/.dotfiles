@@ -41,6 +41,7 @@
           "-p", "127.0.0.1:9224:9224",
           "opencode-figma-mcp:1.40.2"
         ],
+        "codemode": false,
         "disabled": true,
         "timeout": {
           "catalog": 30000,
