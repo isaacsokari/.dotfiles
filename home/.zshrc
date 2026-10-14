@@ -204,4 +204,9 @@ if which bundle > /dev/null; then
   alias bxrs='bundle exec rails server'
 fi
 
+if which direnv > /dev/null; then
+  export DIRENV_LOG_FORMAT=""
+  eval "$(direnv hook zsh)"
+fi
+
 # zprof
