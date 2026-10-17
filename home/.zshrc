@@ -153,6 +153,8 @@ alias 9='cd -9'
 
 source "$HOME/.aliases"
 
+# Machine-specific config goes in ~/.zshrc.local, e.g. a separate Claude Code profile:
+#   alias xclaude='CLAUDE_CONFIG_DIR="$HOME/.claude_x" xclaude'
 if [[ -f "$HOME/.zshrc.local" ]]; then
   source "$HOME/.zshrc.local"
 fi
