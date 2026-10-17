@@ -69,6 +69,7 @@ echo "======================================================================="
 
 link_config "nvim"
 link_config "tmux"
+bash "$HOME/.config/tmux/install.sh" || exit 1
 link_config "starship.toml"
 link_config "ghostty"
 link_config "opencode"
