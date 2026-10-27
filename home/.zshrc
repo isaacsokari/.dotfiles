@@ -101,7 +101,10 @@ if [ -f /usr/bin/keychain ]; then
 source $HOME/.keychain/$HOST-sh
 fi
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+if which yarn > /dev/null; then
+  export PATH="$HOME/.yarn/bin:$PATH"
+  export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+fi
 
 if which keychain > /dev/null; then
   /usr/bin/keychain --quiet --nogui $HOME/.ssh/id_ed25519
