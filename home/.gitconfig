@@ -130,3 +130,16 @@
 
 [init]
   defaultBranch = main
+
+# Commit/tag signing via SSH keys.
+# Set the key per machine/identity in ~/.gitconfig.local (or an includeIf file):
+# [user]
+#   signingkey = ~/.ssh/id_ed25519.pub
+# [commit]
+#   gpgsign = true
+# [tag]
+#   gpgsign = true
+[gpg]
+  format = ssh
+[gpg "ssh"]
+  allowedSignersFile = ~/.ssh/allowed_signers
