@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
+# Docs: https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
+#
+# On macOS lazygit looks in ~/Library/Application Support/lazygit by default,
+# so .zshrc points LG_CONFIG_FILE here instead.
+
+git:
+  # Commits are SSH-signed via ssh-agent (see home/.gitconfig), so let git sign
+  # directly instead of lazygit suspending itself to hand the terminal to gpg.
+  overrideGpg: true
+
+os:
+  # Open files in nvim; reuses the parent nvim instance when lazygit runs inside one.
+  editPreset: nvim-remote

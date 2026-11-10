@@ -17,6 +17,9 @@ fi
 # set ls colors
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
 
+# lazygit defaults to ~/Library/Application Support on macOS; use ~/.config instead
+export LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml"
+
 # Source/Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
 

@@ -74,6 +74,7 @@ link_config "starship.toml"
 link_config "ghostty"
 link_config "opencode"
 link_config "btop"
+link_config "lazygit"
 
 if [[ uname -eq "Darwin" ]]; then # mac os only config
   if which aerospace > /dev/null; then
